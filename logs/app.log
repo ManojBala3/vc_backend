@@ -1,0 +1,243 @@
+2023-06-29 13:44:27,683 INFO com.backend.VC.VcApplicationTests [main] Starting VcApplicationTests on DESKTOP-2T58AVB with PID 6932 (started by manoj in E:\VC project\BACKEND\VC)
+2023-06-29 13:44:27,699 DEBUG com.backend.VC.VcApplicationTests [main] Running with Spring Boot v2.3.7.RELEASE, Spring v5.2.12.RELEASE
+2023-06-29 13:44:27,702 INFO com.backend.VC.VcApplicationTests [main] No active profile set, falling back to default profiles: default
+2023-06-29 13:44:31,596 DEBUG com.zaxxer.hikari.HikariConfig [main] Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
+2023-06-29 13:44:32,929 DEBUG com.zaxxer.hikari.HikariConfig [main] HikariPool-1 - configuration:
+2023-06-29 13:44:32,932 DEBUG com.zaxxer.hikari.HikariConfig [main] allowPoolSuspension.............false
+2023-06-29 13:44:32,932 DEBUG com.zaxxer.hikari.HikariConfig [main] autoCommit......................true
+2023-06-29 13:44:32,933 DEBUG com.zaxxer.hikari.HikariConfig [main] catalog.........................none
+2023-06-29 13:44:32,933 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionInitSql...............none
+2023-06-29 13:44:32,934 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTestQuery.............none
+2023-06-29 13:44:32,934 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTimeout...............30000
+2023-06-29 13:44:32,934 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSource......................none
+2023-06-29 13:44:32,934 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceClassName.............none
+2023-06-29 13:44:32,935 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceJNDI..................none
+2023-06-29 13:44:32,935 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceProperties............{password=<masked>}
+2023-06-29 13:44:32,936 DEBUG com.zaxxer.hikari.HikariConfig [main] driverClassName................."com.mysql.cj.jdbc.Driver"
+2023-06-29 13:44:32,936 DEBUG com.zaxxer.hikari.HikariConfig [main] exceptionOverrideClassName......none
+2023-06-29 13:44:32,936 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckProperties...........{}
+2023-06-29 13:44:32,936 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckRegistry.............none
+2023-06-29 13:44:32,937 DEBUG com.zaxxer.hikari.HikariConfig [main] idleTimeout.....................600000
+2023-06-29 13:44:32,938 DEBUG com.zaxxer.hikari.HikariConfig [main] initializationFailTimeout.......1
+2023-06-29 13:44:32,938 DEBUG com.zaxxer.hikari.HikariConfig [main] isolateInternalQueries..........false
+2023-06-29 13:44:32,939 DEBUG com.zaxxer.hikari.HikariConfig [main] jdbcUrl.........................jdbc:mysql://database-1.cxm6imp7riwg.ap-southeast-2.rds.amazonaws.com/venba_clinic
+2023-06-29 13:44:32,939 DEBUG com.zaxxer.hikari.HikariConfig [main] leakDetectionThreshold..........0
+2023-06-29 13:44:32,940 DEBUG com.zaxxer.hikari.HikariConfig [main] maxLifetime.....................1800000
+2023-06-29 13:44:32,940 DEBUG com.zaxxer.hikari.HikariConfig [main] maximumPoolSize.................10
+2023-06-29 13:44:32,940 DEBUG com.zaxxer.hikari.HikariConfig [main] metricRegistry..................none
+2023-06-29 13:44:32,941 DEBUG com.zaxxer.hikari.HikariConfig [main] metricsTrackerFactory...........none
+2023-06-29 13:44:32,941 DEBUG com.zaxxer.hikari.HikariConfig [main] minimumIdle.....................10
+2023-06-29 13:44:32,941 DEBUG com.zaxxer.hikari.HikariConfig [main] password........................<masked>
+2023-06-29 13:44:32,943 DEBUG com.zaxxer.hikari.HikariConfig [main] poolName........................"HikariPool-1"
+2023-06-29 13:44:32,943 DEBUG com.zaxxer.hikari.HikariConfig [main] readOnly........................false
+2023-06-29 13:44:32,944 DEBUG com.zaxxer.hikari.HikariConfig [main] registerMbeans..................false
+2023-06-29 13:44:32,944 DEBUG com.zaxxer.hikari.HikariConfig [main] scheduledExecutor...............none
+2023-06-29 13:44:32,945 DEBUG com.zaxxer.hikari.HikariConfig [main] schema..........................none
+2023-06-29 13:44:32,947 DEBUG com.zaxxer.hikari.HikariConfig [main] threadFactory...................internal
+2023-06-29 13:44:32,951 DEBUG com.zaxxer.hikari.HikariConfig [main] transactionIsolation............default
+2023-06-29 13:44:32,952 DEBUG com.zaxxer.hikari.HikariConfig [main] username........................"admin"
+2023-06-29 13:44:32,952 DEBUG com.zaxxer.hikari.HikariConfig [main] validationTimeout...............5000
+2023-06-29 13:44:32,952 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2023-06-29 13:44:36,984 DEBUG com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@466802f9
+2023-06-29 13:44:36,986 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-06-29 13:44:37,087 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 housekeeper] HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2023-06-29 13:44:39,614 INFO com.backend.VC.VcApplicationTests [main] Started VcApplicationTests in 12.271 seconds (JVM running for 13.58)
+2023-06-29 13:44:39,968 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-06-29 13:44:39,969 DEBUG com.zaxxer.hikari.pool.HikariPool [SpringContextShutdownHook] HikariPool-1 - Before shutdown stats (total=1, active=0, idle=1, waiting=0)
+2023-06-29 13:44:39,976 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@466802f9: (connection evicted)
+2023-06-29 13:44:40,145 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2feb290f
+2023-06-29 13:44:40,249 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2feb290f: (connection evicted)
+2023-06-29 13:44:40,530 DEBUG com.zaxxer.hikari.pool.HikariPool [SpringContextShutdownHook] HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+2023-06-29 13:44:40,530 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2023-06-29 14:12:58,754 INFO com.VcApplication [main] starting application
+2023-06-29 14:12:59,187 ERROR org.springframework.boot.SpringApplication [main] Application run failed
+java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.util.PropertySetter@64b0598 - Failed to invoke valueOf{} method in class [ch.qos.logback.core.util.FileSize] with value [6 0KB]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:169)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reinitialize(LogbackLoggingSystem.java:222)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithConventions(AbstractLoggingSystem.java:73)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:60)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:118)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:306)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:281)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:239)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:216)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at com.VcApplication.main(VcApplication.java:21)
+2023-06-29 14:13:12,236 INFO com.VcApplication [main] starting application
+2023-06-29 14:13:12,834 INFO com.VcApplication [main] Starting VcApplication on DESKTOP-2T58AVB with PID 13268 (E:\VC project\BACKEND\VC\target\classes started by manoj in E:\VC project\BACKEND\VC)
+2023-06-29 14:13:12,835 DEBUG com.VcApplication [main] Running with Spring Boot v2.3.7.RELEASE, Spring v5.2.12.RELEASE
+2023-06-29 14:13:12,840 INFO com.VcApplication [main] No active profile set, falling back to default profiles: default
+2023-06-29 14:13:17,488 DEBUG com.zaxxer.hikari.HikariConfig [main] Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader TomcatEmbeddedWebappClassLoader
+  context: ROOT
+  delegate: true
+----------> Parent Classloader:
+jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a
+
+2023-06-29 14:13:18,511 DEBUG com.zaxxer.hikari.HikariConfig [main] HikariPool-1 - configuration:
+2023-06-29 14:13:18,514 DEBUG com.zaxxer.hikari.HikariConfig [main] allowPoolSuspension.............false
+2023-06-29 14:13:18,517 DEBUG com.zaxxer.hikari.HikariConfig [main] autoCommit......................true
+2023-06-29 14:13:18,517 DEBUG com.zaxxer.hikari.HikariConfig [main] catalog.........................none
+2023-06-29 14:13:18,518 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionInitSql...............none
+2023-06-29 14:13:18,523 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTestQuery.............none
+2023-06-29 14:13:18,526 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTimeout...............30000
+2023-06-29 14:13:18,527 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSource......................none
+2023-06-29 14:13:18,531 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceClassName.............none
+2023-06-29 14:13:18,532 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceJNDI..................none
+2023-06-29 14:13:18,534 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceProperties............{password=<masked>}
+2023-06-29 14:13:18,537 DEBUG com.zaxxer.hikari.HikariConfig [main] driverClassName................."com.mysql.cj.jdbc.Driver"
+2023-06-29 14:13:18,539 DEBUG com.zaxxer.hikari.HikariConfig [main] exceptionOverrideClassName......none
+2023-06-29 14:13:18,543 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckProperties...........{}
+2023-06-29 14:13:18,544 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckRegistry.............none
+2023-06-29 14:13:18,545 DEBUG com.zaxxer.hikari.HikariConfig [main] idleTimeout.....................600000
+2023-06-29 14:13:18,545 DEBUG com.zaxxer.hikari.HikariConfig [main] initializationFailTimeout.......1
+2023-06-29 14:13:18,545 DEBUG com.zaxxer.hikari.HikariConfig [main] isolateInternalQueries..........false
+2023-06-29 14:13:18,549 DEBUG com.zaxxer.hikari.HikariConfig [main] jdbcUrl.........................jdbc:mysql://database-1.cxm6imp7riwg.ap-southeast-2.rds.amazonaws.com/venba_clinic
+2023-06-29 14:13:18,549 DEBUG com.zaxxer.hikari.HikariConfig [main] leakDetectionThreshold..........0
+2023-06-29 14:13:18,549 DEBUG com.zaxxer.hikari.HikariConfig [main] maxLifetime.....................1800000
+2023-06-29 14:13:18,549 DEBUG com.zaxxer.hikari.HikariConfig [main] maximumPoolSize.................10
+2023-06-29 14:13:18,550 DEBUG com.zaxxer.hikari.HikariConfig [main] metricRegistry..................none
+2023-06-29 14:13:18,553 DEBUG com.zaxxer.hikari.HikariConfig [main] metricsTrackerFactory...........none
+2023-06-29 14:13:18,553 DEBUG com.zaxxer.hikari.HikariConfig [main] minimumIdle.....................10
+2023-06-29 14:13:18,554 DEBUG com.zaxxer.hikari.HikariConfig [main] password........................<masked>
+2023-06-29 14:13:18,554 DEBUG com.zaxxer.hikari.HikariConfig [main] poolName........................"HikariPool-1"
+2023-06-29 14:13:18,555 DEBUG com.zaxxer.hikari.HikariConfig [main] readOnly........................false
+2023-06-29 14:13:18,555 DEBUG com.zaxxer.hikari.HikariConfig [main] registerMbeans..................false
+2023-06-29 14:13:18,556 DEBUG com.zaxxer.hikari.HikariConfig [main] scheduledExecutor...............none
+2023-06-29 14:13:18,557 DEBUG com.zaxxer.hikari.HikariConfig [main] schema..........................none
+2023-06-29 14:13:18,557 DEBUG com.zaxxer.hikari.HikariConfig [main] threadFactory...................internal
+2023-06-29 14:13:18,557 DEBUG com.zaxxer.hikari.HikariConfig [main] transactionIsolation............default
+2023-06-29 14:13:18,557 DEBUG com.zaxxer.hikari.HikariConfig [main] username........................"admin"
+2023-06-29 14:13:18,557 DEBUG com.zaxxer.hikari.HikariConfig [main] validationTimeout...............5000
+2023-06-29 14:13:18,557 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2023-06-29 14:13:22,465 DEBUG com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@67aadf64
+2023-06-29 14:13:22,467 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-06-29 14:13:22,579 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 housekeeper] HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2023-06-29 14:13:23,814 DEBUG com.CrosConfig$$EnhancerBySpringCGLIB$$cf890c [main] Filter 'crosConfig' configured for use
+2023-06-29 14:13:23,815 DEBUG com.CrosConfig [main] Filter 'corsFilter' configured for use
+2023-06-29 14:13:24,914 INFO com.VcApplication [main] Started VcApplication in 12.548 seconds (JVM running for 13.263)
+2023-06-29 14:13:25,587 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@41b426b4
+2023-06-29 14:13:28,566 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@31434a33
+2023-06-29 14:13:31,535 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@8476f80
+2023-06-29 14:13:34,570 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@64e8cfc7
+2023-06-29 14:13:37,506 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1107c23
+2023-06-29 14:13:40,465 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@20b50df7
+2023-06-29 14:13:43,403 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@50e76336
+2023-06-29 14:13:46,395 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ef3e6cd
+2023-06-29 14:13:49,362 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@67f633be
+2023-06-29 14:13:49,362 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2023-06-29 14:13:52,590 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 housekeeper] HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2023-06-29 14:13:52,590 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 housekeeper] HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2023-06-29 14:19:18,842 INFO com.backend.VC.VcApplicationTests [main] Starting VcApplicationTests on DESKTOP-2T58AVB with PID 12240 (started by manoj in E:\VC project\BACKEND\VC)
+2023-06-29 14:19:18,850 DEBUG com.backend.VC.VcApplicationTests [main] Running with Spring Boot v2.3.7.RELEASE, Spring v5.2.12.RELEASE
+2023-06-29 14:19:18,856 INFO com.backend.VC.VcApplicationTests [main] No active profile set, falling back to default profiles: default
+2023-06-29 14:19:24,171 DEBUG com.zaxxer.hikari.HikariConfig [main] Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
+2023-06-29 14:19:26,166 DEBUG com.zaxxer.hikari.HikariConfig [main] HikariPool-1 - configuration:
+2023-06-29 14:19:26,177 DEBUG com.zaxxer.hikari.HikariConfig [main] allowPoolSuspension.............false
+2023-06-29 14:19:26,181 DEBUG com.zaxxer.hikari.HikariConfig [main] autoCommit......................true
+2023-06-29 14:19:26,181 DEBUG com.zaxxer.hikari.HikariConfig [main] catalog.........................none
+2023-06-29 14:19:26,181 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionInitSql...............none
+2023-06-29 14:19:26,182 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTestQuery.............none
+2023-06-29 14:19:26,182 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTimeout...............30000
+2023-06-29 14:19:26,182 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSource......................none
+2023-06-29 14:19:26,182 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceClassName.............none
+2023-06-29 14:19:26,182 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceJNDI..................none
+2023-06-29 14:19:26,183 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceProperties............{password=<masked>}
+2023-06-29 14:19:26,183 DEBUG com.zaxxer.hikari.HikariConfig [main] driverClassName................."com.mysql.cj.jdbc.Driver"
+2023-06-29 14:19:26,183 DEBUG com.zaxxer.hikari.HikariConfig [main] exceptionOverrideClassName......none
+2023-06-29 14:19:26,184 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckProperties...........{}
+2023-06-29 14:19:26,184 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckRegistry.............none
+2023-06-29 14:19:26,184 DEBUG com.zaxxer.hikari.HikariConfig [main] idleTimeout.....................600000
+2023-06-29 14:19:26,185 DEBUG com.zaxxer.hikari.HikariConfig [main] initializationFailTimeout.......1
+2023-06-29 14:19:26,186 DEBUG com.zaxxer.hikari.HikariConfig [main] isolateInternalQueries..........false
+2023-06-29 14:19:26,188 DEBUG com.zaxxer.hikari.HikariConfig [main] jdbcUrl.........................jdbc:mysql://database-1.cxm6imp7riwg.ap-southeast-2.rds.amazonaws.com/venba_clinic
+2023-06-29 14:19:26,188 DEBUG com.zaxxer.hikari.HikariConfig [main] leakDetectionThreshold..........0
+2023-06-29 14:19:26,188 DEBUG com.zaxxer.hikari.HikariConfig [main] maxLifetime.....................1800000
+2023-06-29 14:19:26,189 DEBUG com.zaxxer.hikari.HikariConfig [main] maximumPoolSize.................10
+2023-06-29 14:19:26,189 DEBUG com.zaxxer.hikari.HikariConfig [main] metricRegistry..................none
+2023-06-29 14:19:26,189 DEBUG com.zaxxer.hikari.HikariConfig [main] metricsTrackerFactory...........none
+2023-06-29 14:19:26,189 DEBUG com.zaxxer.hikari.HikariConfig [main] minimumIdle.....................10
+2023-06-29 14:19:26,190 DEBUG com.zaxxer.hikari.HikariConfig [main] password........................<masked>
+2023-06-29 14:19:26,190 DEBUG com.zaxxer.hikari.HikariConfig [main] poolName........................"HikariPool-1"
+2023-06-29 14:19:26,190 DEBUG com.zaxxer.hikari.HikariConfig [main] readOnly........................false
+2023-06-29 14:19:26,191 DEBUG com.zaxxer.hikari.HikariConfig [main] registerMbeans..................false
+2023-06-29 14:19:26,191 DEBUG com.zaxxer.hikari.HikariConfig [main] scheduledExecutor...............none
+2023-06-29 14:19:26,191 DEBUG com.zaxxer.hikari.HikariConfig [main] schema..........................none
+2023-06-29 14:19:26,192 DEBUG com.zaxxer.hikari.HikariConfig [main] threadFactory...................internal
+2023-06-29 14:19:26,195 DEBUG com.zaxxer.hikari.HikariConfig [main] transactionIsolation............default
+2023-06-29 14:19:26,195 DEBUG com.zaxxer.hikari.HikariConfig [main] username........................"admin"
+2023-06-29 14:19:26,195 DEBUG com.zaxxer.hikari.HikariConfig [main] validationTimeout...............5000
+2023-06-29 14:19:26,195 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2023-06-29 14:19:30,342 DEBUG com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1443f11c
+2023-06-29 14:19:30,344 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-06-29 14:19:30,448 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 housekeeper] HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2023-06-29 14:19:33,443 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@73459696
+2023-06-29 14:19:34,485 INFO com.backend.VC.VcApplicationTests [main] Started VcApplicationTests in 15.981 seconds (JVM running for 17.337)
+2023-06-29 14:19:35,111 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-06-29 14:19:35,113 DEBUG com.zaxxer.hikari.pool.HikariPool [SpringContextShutdownHook] HikariPool-1 - Before shutdown stats (total=2, active=0, idle=2, waiting=0)
+2023-06-29 14:19:35,123 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1443f11c: (connection evicted)
+2023-06-29 14:19:35,395 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@73459696: (connection evicted)
+2023-06-29 14:19:36,431 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32789cad
+2023-06-29 14:19:36,435 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@32789cad: (connection evicted)
+2023-06-29 14:19:36,706 DEBUG com.zaxxer.hikari.pool.HikariPool [SpringContextShutdownHook] HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+2023-06-29 14:19:36,707 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2023-06-29 14:24:02,958 INFO com.backend.VC.VcApplicationTests [main] Starting VcApplicationTests on DESKTOP-2T58AVB with PID 9852 (started by manoj in E:\VC project\BACKEND\VC)
+2023-06-29 14:24:02,961 DEBUG com.backend.VC.VcApplicationTests [main] Running with Spring Boot v2.3.7.RELEASE, Spring v5.2.12.RELEASE
+2023-06-29 14:24:02,962 INFO com.backend.VC.VcApplicationTests [main] No active profile set, falling back to default profiles: default
+2023-06-29 14:24:07,089 DEBUG com.zaxxer.hikari.HikariConfig [main] Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
+2023-06-29 14:24:08,389 DEBUG com.zaxxer.hikari.HikariConfig [main] HikariPool-1 - configuration:
+2023-06-29 14:24:08,394 DEBUG com.zaxxer.hikari.HikariConfig [main] allowPoolSuspension.............false
+2023-06-29 14:24:08,395 DEBUG com.zaxxer.hikari.HikariConfig [main] autoCommit......................true
+2023-06-29 14:24:08,396 DEBUG com.zaxxer.hikari.HikariConfig [main] catalog.........................none
+2023-06-29 14:24:08,396 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionInitSql...............none
+2023-06-29 14:24:08,397 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTestQuery.............none
+2023-06-29 14:24:08,397 DEBUG com.zaxxer.hikari.HikariConfig [main] connectionTimeout...............30000
+2023-06-29 14:24:08,397 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSource......................none
+2023-06-29 14:24:08,397 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceClassName.............none
+2023-06-29 14:24:08,397 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceJNDI..................none
+2023-06-29 14:24:08,398 DEBUG com.zaxxer.hikari.HikariConfig [main] dataSourceProperties............{password=<masked>}
+2023-06-29 14:24:08,399 DEBUG com.zaxxer.hikari.HikariConfig [main] driverClassName................."com.mysql.cj.jdbc.Driver"
+2023-06-29 14:24:08,399 DEBUG com.zaxxer.hikari.HikariConfig [main] exceptionOverrideClassName......none
+2023-06-29 14:24:08,399 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckProperties...........{}
+2023-06-29 14:24:08,399 DEBUG com.zaxxer.hikari.HikariConfig [main] healthCheckRegistry.............none
+2023-06-29 14:24:08,399 DEBUG com.zaxxer.hikari.HikariConfig [main] idleTimeout.....................600000
+2023-06-29 14:24:08,401 DEBUG com.zaxxer.hikari.HikariConfig [main] initializationFailTimeout.......1
+2023-06-29 14:24:08,402 DEBUG com.zaxxer.hikari.HikariConfig [main] isolateInternalQueries..........false
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] jdbcUrl.........................jdbc:mysql://database-1.cxm6imp7riwg.ap-southeast-2.rds.amazonaws.com/venba_clinic
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] leakDetectionThreshold..........0
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] maxLifetime.....................1800000
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] maximumPoolSize.................10
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] metricRegistry..................none
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] metricsTrackerFactory...........none
+2023-06-29 14:24:08,404 DEBUG com.zaxxer.hikari.HikariConfig [main] minimumIdle.....................10
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] password........................<masked>
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] poolName........................"HikariPool-1"
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] readOnly........................false
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] registerMbeans..................false
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] scheduledExecutor...............none
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] schema..........................none
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] threadFactory...................internal
+2023-06-29 14:24:08,405 DEBUG com.zaxxer.hikari.HikariConfig [main] transactionIsolation............default
+2023-06-29 14:24:08,406 DEBUG com.zaxxer.hikari.HikariConfig [main] username........................"admin"
+2023-06-29 14:24:08,406 DEBUG com.zaxxer.hikari.HikariConfig [main] validationTimeout...............5000
+2023-06-29 14:24:08,406 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2023-06-29 14:24:12,284 DEBUG com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@466802f9
+2023-06-29 14:24:12,286 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-06-29 14:24:12,398 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 housekeeper] HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2023-06-29 14:24:15,047 INFO com.backend.VC.VcApplicationTests [main] Started VcApplicationTests in 12.489 seconds (JVM running for 13.883)
+2023-06-29 14:24:15,368 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-06-29 14:24:15,368 DEBUG com.zaxxer.hikari.pool.HikariPool [SpringContextShutdownHook] HikariPool-1 - Before shutdown stats (total=1, active=0, idle=1, waiting=0)
+2023-06-29 14:24:15,370 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@466802f9: (connection evicted)
+2023-06-29 14:24:15,379 DEBUG com.zaxxer.hikari.pool.HikariPool [HikariPool-1 connection adder] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2feb290f
+2023-06-29 14:24:15,636 DEBUG com.zaxxer.hikari.pool.PoolBase [HikariPool-1 connection closer] HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2feb290f: (connection evicted)
+2023-06-29 14:24:15,903 DEBUG com.zaxxer.hikari.pool.HikariPool [SpringContextShutdownHook] HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+2023-06-29 14:24:15,903 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
