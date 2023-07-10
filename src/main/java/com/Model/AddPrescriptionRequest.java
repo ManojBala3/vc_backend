@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class AddPrescriptionRequest 
 {
 	public String custid;
+	public String patientid;
 	public String visitid;
 	public String customername;
 	public int customerageyear;
@@ -34,6 +35,12 @@ public class AddPrescriptionRequest
 	 
 	
 	
+	public String getPatientid() {
+		return patientid;
+	}
+	public void setPatientid(String patientid) {
+		this.patientid = patientid;
+	}
 	public Date getNextreview() {
 		return nextreview;
 	}

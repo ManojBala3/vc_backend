@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,9 +74,11 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		CustomerResponse response=new CustomerResponse();
 		CustomerDetails custdata=null;
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
 		try
 		{
 			System.out.println(request.toString());
+			System.out.println(timestamp.toString());
 			if(request.getCustid()!=null && request.getCustid()!="")
 			{
 				logger.info("Exisiting customer");
@@ -249,6 +252,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 					presp.setCustomergender(custdata.getGender());
 					presp.setCustomeremail(custdata.getEmailid());
 					presp.setCustomermobile(custdata.getMobileno());
+					presp.setPatientid(custdata.getCustomerid());
 				}
 				
 				//prescption details
