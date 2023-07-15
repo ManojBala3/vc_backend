@@ -14,6 +14,5 @@ public interface Prescriptionservice
 	public CustomerResponse searchcust(CustomerRequest request,String limit,String offset);
 	public CustomerResponse deletevisit(String id);
 	public CustomerResponse getvisitdata(String id);
-	public void downloadpdf(String id,HttpServletRequest request, HttpServletResponse response);
 	public CustomerResponse updatevisitdetails(AddPrescriptionRequest request);
 }

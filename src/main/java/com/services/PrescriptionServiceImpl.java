@@ -28,10 +28,6 @@ import com.Model.CustomerResponse;
 import com.Model.PrescriptionDetails;
 import com.Model.VisitDetails;
 import com.controller.PrescriptionController;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import ch.qos.logback.classic.Logger;
 
@@ -201,7 +197,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		try
 		{
 			visitdao.deleteById(Integer.parseInt(id));
-			prescriptiondao.deleteprescription(Integer.parseInt(id));
+			prescriptiondao.deleteById(Integer.parseInt(id));
 			custresponse.setRespcode("00");
 			custresponse.setRespdesc("Success");
 		}
@@ -379,24 +375,5 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	
 	public LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
 	    return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
-	}
-
-	@Override
-	public void downloadpdf(String id,HttpServletRequest request, HttpServletResponse response)
-	{
-		try
-		{
-			Document document = new Document(PageSize.A4);
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("HelloWorld.pdf"));
-			document.open();
-	         document.add(new Paragraph("A Hello World PDF document."));
-	         document.close();
-	         writer.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return;
 	}
 }

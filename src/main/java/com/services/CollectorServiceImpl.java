@@ -126,7 +126,6 @@ public class CollectorServiceImpl implements CollectorService
 			if(old!=null && old.isPresent())
 			{
 				int custcount=customerDao.checkmobilenocustid(request.getMobileno(), request.getCustid());
-				System.out.println(custcount);
 				if(custcount==0)
 				{
 					CustomerDetails olddata=old.get();
@@ -136,7 +135,7 @@ public class CollectorServiceImpl implements CollectorService
 					olddata.setEmailid(request.getEmailid());
 					olddata.setMobileno(request.getMobileno());
 					olddata.setState(request.getState());
-					customerDao.save(request);
+					customerDao.save(olddata);
 					response.setRespcode("00");
 					response.setRespdesc("Success");
 				}

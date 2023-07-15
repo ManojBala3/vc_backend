@@ -76,11 +76,4 @@ public class PrescriptionController
 	{
 		return service.updatevisitdetails(request);
 	}
-	
-	@GetMapping("/downloadprescription/{id}")
-	public void downloadpdf(@PathVariable String id,HttpServletRequest request, HttpServletResponse response)
-	{
-		 service.downloadpdf(id, request,  response);
-	}
-	
 }
