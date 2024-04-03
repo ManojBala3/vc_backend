@@ -67,14 +67,14 @@ public class MedicineController
 		}
 	}
 	
-	@PostMapping("/savecustomer")
+	@PostMapping("/save")
 	public MedicineDetails savecustomer(@RequestBody MedicineDetails request)
 	{
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		request.setCreateddate(timestamp);
 		try
 		{
-			return medicineservice.savecustomer(request);
+			return medicineservice.savemed(request);
 		}
 		catch(Exception e)
 		{

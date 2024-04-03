@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <property name="LOG_FILE" value="/home/ec2-user/logs/app.log"/>
+    <property name="LOG_FILE" value="/home/ec2-user/logs/app_VC.log"/>
 
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE}</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/home/ec2-user/logs/archived/app_VC.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each archived file, size max 5KB -->
-            <maxFileSize>50KB</maxFileSize>
+            <maxFileSize>50MB</maxFileSize>
             <!-- total size of all archive files, if total size > 20KB,
 				it will delete old archived file -->
-            <totalSizeCap>60KB</totalSizeCap>
+            <totalSizeCap>60MB</totalSizeCap>
             <!-- 60 days to keep -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>

@@ -21,6 +21,9 @@ public class MedicineDetails
 	@Column(name="medicine_name")
 	private String medicinename;
 	
+	@Column(name="medicine_type")
+	private String medicinetype;
+	
 	@Column(name="created_date")
 	private Timestamp createddate;
 	
@@ -46,6 +49,20 @@ public class MedicineDetails
 
 	public void setMedicinename(String medicinename) {
 		this.medicinename = medicinename;
+	}
+
+	public String getMedicinetype() {
+		return medicinetype;
+	}
+
+	public void setMedicinetype(String medicinetype) {
+		this.medicinetype = medicinetype;
+	}
+
+	@Override
+	public String toString() {
+		return "MedicineDetails [medid=" + medid + ", medicinename=" + medicinename + ", medicinetype=" + medicinetype
+				+ ", createddate=" + createddate + "]";
 	}
 	
 	

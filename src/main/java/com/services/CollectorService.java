@@ -15,4 +15,5 @@ public interface CollectorService {
 	public int getcount();
 	public CustomerResponse updatecust(CustomerDetails request);
 	public CustomerResponse deletecust(String custid);
+	public String generatecustid();
 }

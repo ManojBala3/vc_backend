@@ -53,8 +53,7 @@ public class PrescriptionDetails
 	
 	@Column(name="created_date")
 	private Timestamp createddate;
-	
-	
+
 	public String getAddinfo() {
 		return addinfo;
 	}

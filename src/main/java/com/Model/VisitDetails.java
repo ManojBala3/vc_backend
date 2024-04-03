@@ -66,6 +66,29 @@ public class VisitDetails
 	
 	@Column(name="diagnosis")
 	private String diagnosis;
+	
+	@Column(name="queue_status")
+	private String queuestatus="Completed";
+	
+	@Column(name="queue_no")
+	private int queueno;
+	
+
+	public int getQueueno() {
+		return queueno;
+	}
+
+	public void setQueueno(int queueno) {
+		this.queueno = queueno;
+	}
+
+	public String getQueuestatus() {
+		return queuestatus;
+	}
+
+	public void setQueuestatus(String queuestatus) {
+		this.queuestatus = queuestatus;
+	}
 
 	public int getVisitid() {
 		return visitid;

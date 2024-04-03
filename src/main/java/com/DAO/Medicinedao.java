@@ -9,10 +9,10 @@ import com.Model.MedicineDetails;
 
 public interface Medicinedao extends JpaRepository<MedicineDetails, Integer>
 {
-	@Query(value="select * from medicine_details u order by u.created_date LIMIT ?1 offset ?2",nativeQuery = true)
+	@Query(value="select * from medicine_details u order by u.medicine_name LIMIT ?1 offset ?2",nativeQuery = true)
 	List<MedicineDetails> getupdaterecords(int limit,int offset);
 	
-	@Query(value="select * from medicine_details u where medicine_name like  ?1 order by u.created_date desc LIMIT  ?2 offset ?3",nativeQuery = true)
+	@Query(value="select * from medicine_details u where medicine_name like  ?1 order by u.medicine_name LIMIT  ?2 offset ?3",nativeQuery = true)
 	List<MedicineDetails> getcustDetailsMedicine(String medicine,int limit,int offset);
 
 	@Query("select count(*) from MedicineDetails")
@@ -21,6 +21,6 @@ public interface Medicinedao extends JpaRepository<MedicineDetails, Integer>
 	@Query(value="select count(*) from medicine_details u where medicine_name like  ?1 ",nativeQuery = true)
 	int getcountbymedicine(String medicine);
 	
-	@Query(value="select medicine_name from medicine_details u where medicine_name like  ?1",nativeQuery = true)
-	List<String> searchmedicine(String medicine);
+	@Query(value="select * from medicine_details u where upper(medicine_name) like  upper(?1)",nativeQuery = true)
+	List<MedicineDetails> searchmedicine(String medicine);
 }

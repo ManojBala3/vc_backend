@@ -32,9 +32,15 @@ public class AddPrescriptionRequest
 	public Date nextreview;
 	public String comments;
 	public ArrayList<PrescriptionDetails> products;
-	 
+	private boolean addqueue=false;
 	
-	
+	public boolean isAddqueue() {
+		return addqueue;
+	}
+
+	public void setAddqueue(boolean addqueue) {
+		this.addqueue = addqueue;
+	}
 	public String getPatientid() {
 		return patientid;
 	}

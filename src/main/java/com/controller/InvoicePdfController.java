@@ -56,8 +56,8 @@ public class InvoicePdfController  extends PdfPageEventHelper
     @Autowired
     Prescriptionservice prescriptiondao;
     
-    String filepath="/home/ec2-user/staticdata_VC/";
-    //String filepath="E:\\";
+   String filepath="/home/ec2-user/staticdata_VC/";
+   //String filepath="E:\\";
 
     @GetMapping(path = "/generatepdf/{visitid}")
     public ResponseEntity<InputStreamResource> generateInvoicePdf(@PathVariable String visitid) {
@@ -68,11 +68,20 @@ public class InvoicePdfController  extends PdfPageEventHelper
     	presp=obj.convertValue(custresponse.getCommon(), AddPrescriptionRequest.class);
     	logger.info(presp.toString());
 
+    	StringBuilder filename=new StringBuilder();
+    	filename.append(presp.getCustomername());
+    	filename.append("_");
+    	filename.append(presp.getPatientid());
+    	filename.append("_");
+    	DateFormat df = new SimpleDateFormat("ddMMyyyy");
+        java.util.Date d1=new java.util.Date(presp.getVisitdate().getTime());
+        filename.append(df.format(d1));
+        filename.append(".pdf");
         ByteArrayInputStream testFile = get(presp);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, "application/blob");
         headers.add(HttpHeaders.PRAGMA, "public");
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=testFile.pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename="+filename.toString());
         headers.add(HttpHeaders.CONTENT_ENCODING, "UTF-8");
 
         logger.info("completed----------------------"+visitid);
@@ -90,16 +99,16 @@ public class InvoicePdfController  extends PdfPageEventHelper
             PdfWriter writer =PdfWriter.getInstance(document, out);
             Font venabheader = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             venabheader.setSize(14);
-            venabheader.setStyle(Font.BOLD);
+            //venabheader.setStyle(Font.BOLD);
             Font boldFont1 = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             boldFont1.setSize(11);
-            boldFont1.setStyle(Font.BOLD);
+           // boldFont1.setStyle(Font.BOLD);
             Font boldFontS = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             boldFontS.setSize(10);
-            boldFontS.setStyle(Font.BOLD);
+           // boldFontS.setStyle(Font.BOLD);
             Font boldFont2 = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED); 
             boldFont2.setSize(12);
-            boldFont2.setStyle(Font.BOLD);
+            //boldFont2.setStyle(Font.BOLD);
             Font normalFont =FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED); 
             normalFont.setSize(11);
             normalFont.setStyle(Font.NORMAL);
@@ -164,8 +173,9 @@ public class InvoicePdfController  extends PdfPageEventHelper
             java.util.Date d1=new java.util.Date(presp.getVisitdate().getTime());
         	Chunk tchunk8= new Chunk(df.format(d1), normalFont);
         	Paragraph ph=new Paragraph();
-        	String arr[]=adjustspace(presp.getCustomername().length()+7,age.length()+6,presp.getPatientid().length()+6,23);
-        	System.out.println( arr[0].length()+" "+arr[1].length()+" "+arr[1].length()+" ");
+        	ph.setKeepTogether(false);
+        	String arr[]=adjustspace(presp.getCustomername().length()+6,age.length()+5,presp.getPatientid().length()+5,0);
+        	//System.out.println( arr[0].length()+" "+arr[1].length()+" "+arr[2].length()+" ");
         	ph.add(tchunk1);
         	ph.add(tchunk2);
         	ph.add(arr[0]);
@@ -177,10 +187,9 @@ public class InvoicePdfController  extends PdfPageEventHelper
         	ph.add(arr[2]);
         	ph.add(tchunk7);
         	ph.add(tchunk8);
-        	ph.setAlignment(Element.ALIGN_JUSTIFIED);
         	
         	 PdfPCell tableCell3 = new PdfPCell(ph);
-            		createPdfPCellWithPhrase2("Name : ",presp.getCustomername(),boldFont1, normalFont);
+//            		createPdfPCellWithPhrase2("Name : ",presp.getCustomername(),boldFont1, normalFont);
             tableCell3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
             tableCell3.setColspan(1);
             tableCell3.setPaddingLeft(10);
@@ -190,33 +199,33 @@ public class InvoicePdfController  extends PdfPageEventHelper
             tableCell3.setBorderColorRight(white);
             tableCell3.setBorder(Rectangle.NO_BORDER);
             myReportTable.addCell(tableCell3);
-
-           
-            
-            PdfPCell tableCell4 = createPdfPCellWithPhrase2("A/G : ",age, boldFont1,normalFont);
-            tableCell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-            tableCell4.setColspan(1);
-            tableCell4.setFixedHeight(23f);
-            tableCell4.setCellEvent(new RoundRectangle());
-            tableCell4.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-            //myReportTable.addCell(tableCell4);
-            
-            PdfPCell tableCell5 = createPdfPCellWithPhrase2("UID : ",presp.getPatientid(),boldFont1, normalFont);
-            tableCell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-            tableCell5.setColspan(1);
-            tableCell5.setFixedHeight(23f);
-            tableCell5.setCellEvent(new RoundRectangle());
-            tableCell5.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-           // myReportTable.addCell(tableCell5);
-            
-            
-            PdfPCell tableCell6 = createPdfPCellWithPhrase2("Visit Date : ",df.format(d1) ,boldFont1, normalFont);
-            tableCell6.setHorizontalAlignment(Element.ALIGN_LEFT);
-            tableCell6.setColspan(1);
-            tableCell6.setFixedHeight(23f);
-            tableCell6.setCellEvent(new RoundRectangle());
-            tableCell6.setBorder(Rectangle.TOP | Rectangle.RIGHT | Rectangle.BOTTOM);
-            //myReportTable.addCell(tableCell6);
+//
+//           
+//            
+//            PdfPCell tableCell4 = createPdfPCellWithPhrase2("A/G : ",age, boldFont1,normalFont);
+//            tableCell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+//            tableCell4.setColspan(1);
+//            tableCell4.setFixedHeight(23f);
+//            tableCell4.setCellEvent(new RoundRectangle());
+//            tableCell4.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
+//            //myReportTable.addCell(tableCell4);
+//            
+//            PdfPCell tableCell5 = createPdfPCellWithPhrase2("UID : ",presp.getPatientid(),boldFont1, normalFont);
+//            tableCell5.setHorizontalAlignment(Element.ALIGN_LEFT);
+//            tableCell5.setColspan(1);
+//            tableCell5.setFixedHeight(23f);
+//            tableCell5.setCellEvent(new RoundRectangle());
+//            tableCell5.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
+//           // myReportTable.addCell(tableCell5);
+//            
+//            
+//            PdfPCell tableCell6 = createPdfPCellWithPhrase2("Visit Date : ",df.format(d1) ,boldFont1, normalFont);
+//            tableCell6.setHorizontalAlignment(Element.ALIGN_LEFT);
+//            tableCell6.setColspan(1);
+//            tableCell6.setFixedHeight(23f);
+//            tableCell6.setCellEvent(new RoundRectangle());
+//            tableCell6.setBorder(Rectangle.TOP | Rectangle.RIGHT | Rectangle.BOTTOM);
+//            //myReportTable.addCell(tableCell6);
             
             document.add(myReportTable);
            
@@ -236,7 +245,11 @@ public class InvoicePdfController  extends PdfPageEventHelper
             table2_cell1.setBorder(Rectangle.NO_BORDER);
             table2.addCell(table2_cell1);
             
-            PdfPCell table2_cell2 = createPdfPCellWithPhrase2("Growth:  Weight: ",presp.getWeight()+"".concat("kg"),boldFont1, normalFont);
+            PdfPCell table2_cell2=null;
+            if(presp.getWeight()==0)
+            	table2_cell2 = new PdfPCell();
+            else
+            	table2_cell2 = createPdfPCellWithPhrase2("Weight: ",presp.getWeight()+"".concat("kg"),boldFont1, normalFont);
             table2_cell2.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table2_cell2.setFixedHeight(25f);
             table2_cell2.setBorder(Rectangle.NO_BORDER);
@@ -248,7 +261,11 @@ public class InvoicePdfController  extends PdfPageEventHelper
             table2_cell3.setBorder(Rectangle.NO_BORDER);
             table2.addCell(table2_cell3);
             
-            PdfPCell table2_cell4 = createPdfPCellWithPhrase2("Height: ",presp.getHeight()+"".concat("cm"),boldFont1, normalFont);
+            PdfPCell table2_cell4=null;
+            if(presp.getWeight()==0)
+            	table2_cell4 = new PdfPCell();
+            else
+            	table2_cell4 = createPdfPCellWithPhrase2("Height: ",presp.getHeight()+"".concat("cm"),boldFont1, normalFont);
             table2_cell4.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table2_cell4.setFixedHeight(25f);
             table2_cell4.setBorder(Rectangle.NO_BORDER);
@@ -260,7 +277,11 @@ public class InvoicePdfController  extends PdfPageEventHelper
             table2_cell5.setBorder(Rectangle.NO_BORDER);
             table2.addCell(table2_cell5);
             
-            PdfPCell table2_cell6 = createPdfPCellWithPhrase2("HC: ",presp.getHc()+"".concat("cm"), boldFont1,normalFont);
+            PdfPCell table2_cell6=null;
+            if(presp.getWeight()==0)
+            	table2_cell6 = new PdfPCell();
+            else
+            	table2_cell6 = createPdfPCellWithPhrase2("HC: ",presp.getHc()+"".concat("cm"), boldFont1,normalFont);
             table2_cell6.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table2_cell6.setFixedHeight(25f);
             table2_cell6.setBorder(Rectangle.NO_BORDER);
@@ -531,17 +552,20 @@ public class InvoicePdfController  extends PdfPageEventHelper
     	extra[0]="";//initialization  
     	extra[1]="";  
     	extra[2]="";  
-    	int total=105;
+    	int total=70;
     	int current=name+age+uid+date;
-    	if(current<total)
+    	System.out.println(current);
+    	if((current)<total)
     	{
-    		while(current<total)
+    		while((current+3)<=total)
     		{
-    			for(int i=0;i<extra.length;i++){extra[i]=extra[i].concat(space); }
-    			current=current+3;
+    			for(int i=0;i<extra.length;i++)
+    			{
+    				extra[i]=extra[i].concat(space);
+    				current=current+1;
+    			}
     		}
     	}
     	return extra;
     }
-   
 }

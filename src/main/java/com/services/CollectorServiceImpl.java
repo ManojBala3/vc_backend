@@ -1,24 +1,23 @@
 package com.services;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Optional;
-import com.common.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.DAO.CustomerDetailsDao;
+import com.DAO.ErrorLogDao;
 import com.Model.CustomerDetails;
 import com.Model.CustomerResponse;
+import com.Model.ErrorLogDetails;
 import com.Model.MasterData;
-import com.controller.CollectorController;
+import com.common.Commonservice;
 
 @Service
 public class CollectorServiceImpl implements CollectorService
@@ -30,6 +29,9 @@ public class CollectorServiceImpl implements CollectorService
 	@Autowired
 	private CustomerDetailsDao customerDao;
 	
+	@Autowired
+	private ErrorLogDao errordao;
+	
 	@Override
 	public List<CustomerDetails> getallrecords(String limit,String offset) {
 		return customerDao.getupdaterecords(Integer.parseInt(limit),Integer.parseInt(offset));
@@ -39,30 +41,38 @@ public class CollectorServiceImpl implements CollectorService
 	public List<CustomerDetails> getcustdetails(String searchvalue,String searchtype,String limit,String offset) 
 	{
 		List<CustomerDetails> custlist=null;
-		if(searchtype.equalsIgnoreCase("mobile"))
+		try
 		{
-			searchvalue=("%").concat(searchvalue.concat("%"));
-			custlist=customerDao.getcustDetailsMobile(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
-		}
-		else if(searchtype.equalsIgnoreCase("name"))
-		{
-			searchvalue=("%").concat(searchvalue.concat("%"));
-			custlist=customerDao.getcustDetailsName(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
-		}
-		else if(searchtype.equalsIgnoreCase("patientid"))
-		{
-			searchvalue=("%").concat(searchvalue.concat("%"));
-			custlist=customerDao.getcustDetailscustid(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
-		}
-		if(custlist!=null && custlist.size()>0)
-		{
-			for(CustomerDetails custdata:custlist)
+			if(searchtype.equalsIgnoreCase("mobile"))
 			{
-				if(custdata!=null && custdata.getDob()!=null)
+				searchvalue=("%").concat(searchvalue.concat("%"));
+				custlist=customerDao.getcustDetailsMobile(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
+			}
+			else if(searchtype.equalsIgnoreCase("name"))
+			{
+				searchvalue=("%").concat(searchvalue.concat("%"));
+				custlist=customerDao.getcustDetailsName(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
+			}
+			else if(searchtype.equalsIgnoreCase("patientid"))
+			{
+				searchvalue=("%").concat(searchvalue.concat("%"));
+				custlist=customerDao.getcustDetailscustid(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
+			}
+			if(custlist!=null && custlist.size()>0)
+			{
+				for(CustomerDetails custdata:custlist)
 				{
-					custdata.setAge(calculateAge(custdata.getDob())+"");
+					if(custdata!=null && custdata.getDob()!=null)
+					{
+						custdata.setAge(calculateAge(custdata.getDob())+"");
+					}
 				}
 			}
+		}
+		catch(Exception e)
+		{
+			logger.error(e.getLocalizedMessage());
+			inserterrorlog(new ErrorLogDetails("getcustdetails",e.getLocalizedMessage(),searchtype.concat(searchvalue)));
 		}
 		return custlist;
 	}
@@ -70,6 +80,7 @@ public class CollectorServiceImpl implements CollectorService
 	@Override
 	public int getcount() {
 		return customerDao.getrecordscount();
+		
 	}
 
 	@Override
@@ -107,6 +118,7 @@ public class CollectorServiceImpl implements CollectorService
 			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("savecustomer",e.getLocalizedMessage(),Commonservice.printresp(request)));
 		}
 		return response;
 	}
@@ -151,6 +163,7 @@ public class CollectorServiceImpl implements CollectorService
 			e.printStackTrace();
 			response.setRespcode("FF");
 			response.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("updatecust",e.getLocalizedMessage(),Commonservice.printresp(request)));
 		}
 		return response;
 	}
@@ -170,6 +183,7 @@ public class CollectorServiceImpl implements CollectorService
 			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some error occured");
+			inserterrorlog(new ErrorLogDetails("updatecust",e.getLocalizedMessage(),custid));
 		}
 		return response;
 	}
@@ -184,54 +198,66 @@ public class CollectorServiceImpl implements CollectorService
 	    return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
 	}
 	
-	private String generatecustid()
+	public String generatecustid()
 	{
-		int currentseq=1;
 		String custid="";
-		boolean resettriggered=false;
-		LocalDate currentDate=LocalDate.now();
-		int month=currentDate.getMonthValue();
-		int day=currentDate.getDayOfMonth();
-		int year=currentDate.getYear();
-		int diffyear=year-startyear;
-		Month month_m = currentDate.getMonth();
-		List<MasterData> map=customerDao.getmasterdata();
-		custid=custid.concat(String.format("%02d", day)).concat(String.format("%02d", month));
-		if(map!=null && map.size()>0)
+		try
 		{
-			for(MasterData data:map)
+			int currentseq=1;
+			boolean resettriggered=false;
+			LocalDate currentDate=LocalDate.now();
+			int month=currentDate.getMonthValue();
+			int day=currentDate.getDayOfMonth();
+			int year=currentDate.getYear();
+			int diffyear=year-startyear;
+			Month month_m = currentDate.getMonth();
+			List<MasterData> map=customerDao.getmasterdata();
+			custid=custid.concat(String.format("%02d", day)).concat(String.format("%02d", month));
+			if(map!=null && map.size()>0)
 			{
-				if(data.getKey().equalsIgnoreCase("customer_id_seq_month"))
+				for(MasterData data:map)
 				{
-					logger.info("checking for reset customer id");
-					if(!data.getValue().equalsIgnoreCase(month_m.name()))
+					if(data.getKey().equalsIgnoreCase("customer_id_seq_month"))
 					{
-						customerDao.updatemaster("customer_id_seq_month", month_m.name());
-						customerDao.updatemaster("customer_id_seq", "0");
-						resettriggered=true;
+						logger.info("checking for reset customer id");
+						if(!data.getValue().equalsIgnoreCase(month_m.name()))
+						{
+							customerDao.updatemaster("customer_id_seq_month", month_m.name());
+							customerDao.updatemaster("customer_id_seq", "0");
+							resettriggered=true;
+						}
 					}
-				}
-				else if(data.getKey().equalsIgnoreCase("customer_id_seq"))
-				{
-					if(resettriggered)
+					else if(data.getKey().equalsIgnoreCase("customer_id_seq"))
 					{
-						currentseq=currentseq+1;
-						customerDao.updatemaster("customer_id_seq", "1");
-						return custid.concat("01").concat(Commonservice.IntToLetter(diffyear));
-					}
-					else
-					{	currentseq=Integer.parseInt(data.getValue())+1;
-						customerDao.updatemaster("customer_id_seq", currentseq+"");
-						return custid.concat(String.format("%02d", currentseq)).concat((Commonservice.IntToLetter(diffyear+1)).toUpperCase());
+						if(resettriggered)
+						{
+							currentseq=currentseq+1;
+							customerDao.updatemaster("customer_id_seq", "1");
+							return custid.concat("01").concat(Commonservice.IntToLetter(diffyear));
+						}
+						else
+						{	currentseq=Integer.parseInt(data.getValue())+1;
+							customerDao.updatemaster("customer_id_seq", currentseq+"");
+							return custid.concat(String.format("%02d", currentseq)).concat((Commonservice.IntToLetter(diffyear+1)).toUpperCase());
+						}
 					}
 				}
 			}
-			
-			
+		}
+		catch(Exception e)
+		{
+			logger.error(e.getLocalizedMessage());
+			inserterrorlog(new ErrorLogDetails("generatecustid",e.getLocalizedMessage(),""));
 		}
 		return custid;
 	}
 
-	
+	public void inserterrorlog(ErrorLogDetails errorlog)
+	 {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		errorlog.setCreateddate(timestamp);
+		errordao.save(errorlog);
+	 }
+
 	
 }

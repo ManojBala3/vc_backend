@@ -1,8 +1,5 @@
 package com.services;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.Model.AddPrescriptionRequest;
 import com.Model.CustomerRequest;
 import com.Model.CustomerResponse;

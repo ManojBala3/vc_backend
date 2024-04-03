@@ -1,6 +1,5 @@
 package com.services;
 
-import java.io.FileOutputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -11,25 +10,22 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TimeZone;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DAO.CustomerDetailsDao;
+import com.DAO.ErrorLogDao;
 import com.DAO.PrescriptionDao;
 import com.DAO.VisitDetailsDao;
 import com.Model.AddPrescriptionRequest;
 import com.Model.CustomerDetails;
 import com.Model.CustomerRequest;
 import com.Model.CustomerResponse;
+import com.Model.ErrorLogDetails;
 import com.Model.PrescriptionDetails;
 import com.Model.VisitDetails;
-import com.controller.PrescriptionController;
-
-import ch.qos.logback.classic.Logger;
+import com.common.Commonservice;
 
 @Service
 public class PrescriptionServiceImpl implements Prescriptionservice
@@ -44,6 +40,12 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	
 	@Autowired
 	private VisitDetailsDao visitdao;
+	
+	@Autowired
+	private ErrorLogDao errordao;
+	
+	@Autowired
+	private CollectorService collectorservice;
 
 	@Override
 	public CustomerResponse getallvistdtls(String limit, String offset) 
@@ -73,8 +75,6 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
 		try
 		{
-			System.out.println(request.toString());
-			System.out.println(timestamp.toString());
 			if(request.getCustid()!=null && request.getCustid()!="")
 			{
 				logger.info("Exisiting customer");
@@ -83,21 +83,13 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			}
 			else
 			{
-				System.out.println("New customer");
+				logger.info("New customer");
 				custdata=customerDao.getcustwithmobile(request.getCustomermobile());
 				if(custdata==null)
 				{
 					custdata=new CustomerDetails();
-					custdata.setCustname(request.getCustomername());
-					if(request.getCustomergender()!=null)
-						custdata.setGender(request.getCustomergender());
-					if(request.getCustomeremail()!=null)
-						custdata.setEmailid(request.getCustomeremail());
-					if(request.getCustomermobile()!=null)
-						custdata.setMobileno(request.getCustomermobile());
 					custdata.setCreateddate(timestamp);
-					custdata=customerDao.save(custdata);
-					logger.info(custdata.toString());
+					custdata.setCustomerid(collectorservice.generatecustid());
 				}
 				else
 				{
@@ -106,12 +98,25 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 					return response;
 				}
 			}
+			custdata.setCustname(request.getCustomername());
+			if(request.getCustomergender()!=null)
+				custdata.setGender(request.getCustomergender());
+			if(request.getCustomeremail()!=null)
+				custdata.setEmailid(request.getCustomeremail());
+			if(request.getCustomermobile()!=null)
+				custdata.setMobileno(request.getCustomermobile());
+			custdata=customerDao.save(custdata);
 			VisitDetails visitdetails=new VisitDetails();
+			if(request.isAddqueue())
+			{
+				visitdetails.setQueuestatus("Waiting");
+				visitdetails.setQueueno(validatequeueno(visitdao.getqueueno()+""));
+			}
 			visitdetails.setCustid(custdata.getCustid());
-			visitdetails.setAbc(request.getAbc());
-			visitdetails.setVitals(request.getVitals());
-			visitdetails.setEnt(request.getEnt());
-			visitdetails.setSe(request.getSe());
+			visitdetails.setAbc(Commonservice.HandleNULL(request.getAbc()));
+			visitdetails.setVitals(Commonservice.HandleNULL(request.getVitals()));
+			visitdetails.setEnt(Commonservice.HandleNULL(request.getEnt()));
+			visitdetails.setSe(Commonservice.HandleNULL(request.getSe()));
 			visitdetails.setHeight(request.getHeight());
 			visitdetails.setWeight(request.getHeight());
 			visitdetails.setHc(request.getHc());
@@ -119,18 +124,22 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			visitdetails.setAgemonth(request.getCustomeragemonth());
 			visitdetails.setAgeweek(request.getCustomerageweek());
 			visitdetails.setAgeday(request.getCustomerageday());
-			visitdetails.setDiagnosis(request.getAdditionalnote());
+			visitdetails.setDiagnosis(Commonservice.HandleNULL(request.getAdditionalnote()));
 			visitdetails.setVisitdate(timestamp);
 			visitdetails.setNextvisitdate(request.getNextreview());
-			visitdetails.setAdvice(request.getComments());
+			visitdetails.setAdvice(Commonservice.HandleNULL(request.getComments()));
 			visitdetails=visitdao.save(visitdetails); 
-			ArrayList<PrescriptionDetails> products=request.getProducts();
-			for(PrescriptionDetails pd:products)
+			if(request.getProducts()!=null && !request.getProducts().isEmpty())
 			{
-				pd.setCreateddate(timestamp);
-				pd.setVisitid(visitdetails.getVisitid());
+				ArrayList<PrescriptionDetails> products=request.getProducts();
+				for(PrescriptionDetails pd:products)
+				{
+					pd.setCreateddate(timestamp);
+					pd.setVisitid(visitdetails.getVisitid());
+				}
+				prescriptiondao.saveAll(products);
 			}
-			prescriptiondao.saveAll(products);
+			
 			response.setRespcode("00");
 			response.setRespdesc("Success");
 		}
@@ -139,8 +148,17 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("saveprescription - Visit",e.getLocalizedMessage(),Commonservice.printresp(request)));
 		}
 		return response;
+	}
+	
+	private int validatequeueno(String queueno)
+	{
+		if(queueno!=null && !queueno.equals("0") && !queueno.equalsIgnoreCase("null"))
+			return (Integer.parseInt(queueno))+1;
+		else
+			return 1;
 	}
 
 	@Override
@@ -186,6 +204,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			e.printStackTrace();
 			custresponse.setRespcode("01");
 			custresponse.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("searchcust - Visit",e.getLocalizedMessage(),Commonservice.printresp(request)));
 		}
 		return custresponse;
 	}
@@ -206,6 +225,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			e.printStackTrace();
 			custresponse.setRespcode("01");
 			custresponse.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("Delete Visit",e.getLocalizedMessage(),id));
 		}
 		
 		return custresponse;
@@ -272,6 +292,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			e.printStackTrace();
 			custresponse.setRespcode("01");
 			custresponse.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("getvisitdata",e.getLocalizedMessage(),id));
 		}
 		return custresponse;	
 	}
@@ -279,6 +300,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	public CustomerResponse updatevisitdetails(AddPrescriptionRequest request)
 	{
 		CustomerResponse response=new CustomerResponse();
+		CustomerDetails custdata=null;
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		System.out.println(request.toString());
 		try
@@ -301,8 +323,22 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				visitdetails.setAgeweek(request.getCustomerageweek());
 				visitdetails.setAgeday(request.getCustomerageday());
 				visitdetails.setAdvice(request.getComments());
+				visitdetails.setQueuestatus("Completed");
 				visitdao.save(visitdetails);
 			}
+			custdata=customerDao.getcustwithmobile(request.getCustomermobile());
+			if(custdata!=null)
+			{
+				custdata.setCustname(request.getCustomername());
+				if(request.getCustomergender()!=null)
+					custdata.setGender(request.getCustomergender());
+				if(request.getCustomeremail()!=null)
+					custdata.setEmailid(request.getCustomeremail());
+				if(request.getCustomermobile()!=null)
+					custdata.setMobileno(request.getCustomermobile());
+				custdata=customerDao.save(custdata);
+			}
+			
 			ArrayList<PrescriptionDetails> pdtls=prescriptiondao.getprescrption(Integer.parseInt(request.getVisitid()));
 			if(pdtls!=null && pdtls.size()>0)
 			{
@@ -318,6 +354,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 							{
 								deletedata=false;
 								dbdata.setDrugname(userdata.getDrugname());
+								dbdata.setMedtype(userdata.getMedtype());
 								dbdata.setMorning(userdata.getMorning());
 								dbdata.setNoon(userdata.getNoon());
 								dbdata.setEvening(userdata.getEvening());
@@ -363,6 +400,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured");
+			inserterrorlog(new ErrorLogDetails("updatevisitdetails",e.getLocalizedMessage(),Commonservice.printresp(request)));
 		}
 		return response;
 	}
@@ -376,4 +414,11 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	public LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
 	    return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
 	}
+	
+	public void inserterrorlog(ErrorLogDetails errorlog)
+	 {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		errorlog.setCreateddate(timestamp);
+		errordao.save(errorlog);
+	 }
 }
