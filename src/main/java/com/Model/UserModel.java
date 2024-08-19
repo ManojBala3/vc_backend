@@ -2,47 +2,43 @@ package com.Model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 
-@Entity
-@Table(name="user_details")
+//@Entity
+@Document(collection = "user_details")
+//@Table(name="user_details")
 public class UserModel {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@org.springframework.data.annotation.Id
+	
+	@Field(name="id")
 	private int id;
 	
-	@Column(name="user_name")
+	@Field(name="user_name")
 	private String username;
 	
-	@Column(name="created_date")
-	private Timestamp createddate;
+	@Field(name="created_date")
+	private java.util.Date createddate;
 	
-	@Column(name="password")
+	@Field(name="password")
 	private  byte[] password;
 	
-	@Column(name="created_by")
+	@Field(name="created_by")
 	private String createdby;
 	
-	@Column(name="user_role")
+	@Field(name="user_role")
 	private String userrole;
 	
-	@Column(name="user_salt")
+	@Field(name="user_salt")
 	private byte[] usersalt;
 
-	@Transient
+	@org.springframework.data.annotation.Transient
 	private String userpassword;
 	
-	@Transient
+	@org.springframework.data.annotation.Transient
 	private String createdate;
 	
 	public String getUserpassword() {
@@ -77,11 +73,11 @@ public class UserModel {
 		this.username = username;
 	}
 
-	public Timestamp getCreateddate() {
+	public java.util.Date getCreateddate() {
 		return createddate;
 	}
 
-	public void setCreateddate(Timestamp visitdate) {
+	public void setCreateddate(java.util.Date visitdate) {
 		this.createddate = visitdate;
 	}
 

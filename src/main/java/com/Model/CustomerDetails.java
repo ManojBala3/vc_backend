@@ -3,48 +3,45 @@ package com.Model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Data;
 
-@Entity
-@Table(name="customer_details")
+
+@Document(collection = "customer_details")
+//@Table(name="customer_details")
 @Data
 public class CustomerDetails {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cust_id")
+	@Field(name="cust_id")
 	private int custid;
 	
-	@Column(name="mobile_no")
+	@Field(name="mobile_no")
 	private String mobileno;
 	
-	@Column(name="customer_name")
+	@Field(name="customer_name")
 	private String custname;
 	
-	@Column(name="emailid")
+	@Field(name="emailid")
 	private String emailid;
 	
-	@Column(name="state")
+	@Field(name="state")
 	private String state;
 	
-	@Column(name="District")
+	@Field(name="District")
 	private String district;
 	
-	@Column(name="Gender")
+	@Field(name="Gender")
 	private String gender;
 	
-	@Column(name="customer_id")
+	@Field(name="customer_id")
 	private String customerid;
 	
-	@Column(name="dob")
+	@Field(name="dob")
 	private Date dob;
 	
 	@Transient
@@ -53,7 +50,7 @@ public class CustomerDetails {
 	@Transient
 	private String age;
 	
-	@Column(name="created_date")
+	@Field(name="created_date")
 	private Timestamp createddate;
 
 	@Override

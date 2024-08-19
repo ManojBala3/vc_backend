@@ -12,6 +12,6 @@ public class HeaderFooterPageEvent  extends PdfPageEventHelper
 {
     public void onEndPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("art");
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Dr.C.Kannan"), rect.getRight(), rect.getBottom(), 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Dr. C. Kannan"), rect.getRight(), rect.getBottom(), 0);
     }
 }

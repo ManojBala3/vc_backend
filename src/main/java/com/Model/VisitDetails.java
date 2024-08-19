@@ -2,75 +2,70 @@ package com.Model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="visit_details")
+//@Table(name="visit_details")
+@Document(collection = "visit_details")
 public class VisitDetails 
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="visit_id")
+	@org.springframework.data.annotation.Id
+	@Field(name="visit_id")
 	private int visitid;
 	
-	@Column(name="cust_id")
+	@Field(name="cust_id")
 	private int custid;
 	
-	@Column(name="visit_date")
+	@Field(name="visit_date")
 	private Timestamp visitdate;
 	
-	@Column(name="age_year")
+	@Field(name="age_year")
 	private int ageyear;
 	
-	@Column(name="age_month")
+	@Field(name="age_month")
 	private int agemonth;
 	
-	@Column(name="age_day")
+	@Field(name="age_day")
 	private int ageday;
 	
-	@Column(name="age_week")
+	@Field(name="age_week")
 	private int ageweek;
 	
-	@Column(name="advice")
+	@Field(name="advice")
 	private String advice;
 	
-	@Column(name="next_visit")
+	@Field(name="next_visit")
 	private Date nextvisitdate;
 	
-	@Column(name="ABC")
+	@Field(name="ABC")
 	private String abc;
 	
-	@Column(name="vitals")
+	@Field(name="vitals")
 	private String vitals;
 	
-	@Column(name="ENT")
+	@Field(name="ENT")
 	private String ent;
 	
-	@Column(name="SE")
+	@Field(name="SE")
 	private String se;
 	
-	@Column(name="Height")
+	@Field(name="Height")
 	private int height;
 	
-	@Column(name="Weight")
+	@Field(name="Weight")
 	private int weight;
 	
-	@Column(name="HC")
+	@Field(name="HC")
 	private int hc;
 	
-	@Column(name="diagnosis")
+	@Field(name="diagnosis")
 	private String diagnosis;
 	
-	@Column(name="queue_status")
+	@Field(name="queue_status")
 	private String queuestatus="Completed";
 	
-	@Column(name="queue_no")
+	@Field(name="queue_no")
 	private int queueno;
 	
 

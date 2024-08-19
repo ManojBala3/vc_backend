@@ -2,35 +2,31 @@ package com.Model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Data;
 
-@Entity
-@Table(name="errorlogs")
+@Document(collection = "errorlogs")
+//@Table(name="errorlogs")
 @Data
 public class ErrorLogDetails
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="errorid")
+	@org.springframework.data.annotation.Id
+	@Field(name="errorid")
 	private int errorid;
 	
-	@Column(name="module")
+	@Field(name="module")
 	private String module;
 	
-	@Column(name="created_date")
+	@Field(name="created_date")
 	private Timestamp createddate;
 	
-	@Column(name="error_msg")
+	@Field(name="error_msg")
 	private String error_msg;
 	
-	@Column(name="request")
+	@Field(name="request")
 	private String request;
 
 	public ErrorLogDetails(String module, String error_msg, String request) {

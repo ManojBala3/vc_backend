@@ -2,56 +2,53 @@ package com.Model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="prescription_details")
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+
+//@Table(name="prescription_details")
+@Document(collection = "prescription_details")
 public class PrescriptionDetails 
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="p_id")
+	@org.springframework.data.annotation.Id
+	@Field(name="p_id")
 	private int pid;
 	
-	@Column(name="visit_id")
+	@Field(name="visit_id")
 	private int visitid;
 	
-	@Column(name="drug_name")
+	@Field(name="drug_name")
 	private String drugname;
 	
-	@Column(name="morng")
+	@Field(name="morng")
 	private int morning;
 	
-	@Column(name="evening")
+	@Field(name="evening")
 	private int evening;
 	
-	@Column(name="noon")
+	@Field(name="noon")
 	private int noon;
 	
-	@Column(name="night")
+	@Field(name="night")
 	private int night;
 	
-	@Column(name="b_food")
+	@Field(name="b_food")
 	private Boolean beforefood;
 	
-	@Column(name="a_food")
+	@Field(name="a_food")
 	private Boolean afterfood;
 	
-	@Column(name="duration")
+	@Field(name="duration")
 	private int duration;
 	
-	@Column(name="medtype")
+	@Field(name="medtype")
 	private String medtype;
 	
-	@Column(name="add_info")
+	@Field(name="add_info")
 	private String addinfo;
 	
-	@Column(name="created_date")
+	@Field(name="created_date")
 	private Timestamp createddate;
 
 	public String getAddinfo() {
