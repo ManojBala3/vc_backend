@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.DAO.UserDao;
@@ -25,9 +23,6 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	UserDao userdao;
-	
-	@Autowired
-    private MongoTemplate mongoTemplate;
 
 	@Override
 	public CustomerResponse saveuser(UserModel usermodel) {
@@ -59,8 +54,7 @@ public class UserServiceImpl implements UserService{
 		Map<String,String> userdata=new HashMap<String,String>();
 		try
 		{
-			Document document=userdao.findbyusername(usermodel.getUsername());
-			usermodelDB=mongoTemplate.getConverter().read(UserModel.class, document);
+			usermodelDB=userdao.validateuser(usermodel.getUsername());
 			if(usermodelDB!=null && usermodelDB.getUsername()!=null)
 			{
 				byte[] enterpass=Commonservice.hashPassword(usermodel.getUserpassword(),usermodelDB.getUsersalt());

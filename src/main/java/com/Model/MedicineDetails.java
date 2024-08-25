@@ -2,27 +2,29 @@ package com.Model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-
-//@Table(name="medicine_details")
-@Document(collection = "medicine_details")
+@Entity
+@Table(name="medicine_details")
 public class MedicineDetails 
 {
-	@org.springframework.data.annotation.Id
-	@Field(name="med_id")
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="med_id")
 	private int medid;
 	
-	@Field(name="medicine_name")
+	@Column(name="medicine_name")
 	private String medicinename;
 	
-	@Field(name="medicine_type")
+	@Column(name="medicine_type")
 	private String medicinetype;
 	
-	@Field(name="created_date")
+	@Column(name="created_date")
 	private Timestamp createddate;
 	
 	public Timestamp getCreateddate() {

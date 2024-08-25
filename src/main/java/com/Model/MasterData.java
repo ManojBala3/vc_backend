@@ -1,22 +1,25 @@
 package com.Model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-
-//@Table(name="master")
-@Document(collection = "master")
+@Entity
+@Table(name="master")
 public class MasterData {
 
-	@org.springframework.data.annotation.Id
-	@Field(name="master_id")
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="master_id")
 	private int id;
 	
-	@Field(name="master_key")
+	@Column(name="master_key")
 	private String key;
 	
-	@Field(name="master_value")
+	@Column(name="master_value")
 	private String value;
 
 	public int getId() {
