@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DAO.UserDao;
+import com.Model.CustomerRequest;
 import com.Model.CustomerResponse;
 import com.Model.UserModel;
 import com.common.Commonservice;
@@ -42,7 +43,10 @@ public class UserServiceImpl implements UserService{
 		{
 			e.printStackTrace();
 			response.setRespcode("01");
-			response.setRespdesc("Some Error Occured "+e.getLocalizedMessage());
+			if(e.getLocalizedMessage().contains("user_name_UNIQUE"))
+					response.setRespdesc("Username Already Exists");
+			else
+				response.setRespdesc("Some Error Occured "+e.getLocalizedMessage());
 		}
 		return response;
 	}
@@ -130,7 +134,39 @@ public class UserServiceImpl implements UserService{
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured "+e.getLocalizedMessage());
 		}
-		return null;
+		return response;
+	}
+
+
+	@Override
+	public CustomerResponse searchuser(String limit, String offset,UserModel request) {
+
+		CustomerResponse response=new CustomerResponse();
+		List<Map<String,String>> usermodel=null;
+		try
+		{
+			if(request.getUsername()!=null)
+				usermodel=userdao.searchbyusername((("%").concat(request.getUsername().concat("%"))),Integer.parseInt(limit),Integer.parseInt(offset));
+			else
+				usermodel=userdao.searchbyrole((("%").concat(request.getUserrole().concat("%"))),Integer.parseInt(limit),Integer.parseInt(offset));
+			if(usermodel!=null && !usermodel.isEmpty())
+			{
+				response.setRespcode("00");
+				response.setRespdesc("Success");
+				response.setCommon(usermodel);
+				response.setTotalcount(usermodel.size() +"");
+				return response;
+			}
+			response.setRespcode("01");
+			response.setRespdesc("No records found.");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setRespcode("01");
+			response.setRespdesc("Some Error Occured "+e.getLocalizedMessage());
+		}
+		return response;
 	}
 	
 	

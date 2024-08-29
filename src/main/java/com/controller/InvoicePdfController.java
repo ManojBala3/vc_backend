@@ -23,6 +23,7 @@ import com.Model.AddPrescriptionRequest;
 import com.Model.CustomerResponse;
 import com.Model.PrescriptionDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.InputStream;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -46,9 +47,10 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
+//@CrossOrigin
 @RestController
-@RequestMapping
-@CrossOrigin
+@RequestMapping("/venbaclinic")
+
 public class InvoicePdfController extends PdfPageEventHelper {
 	Font font = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
 
@@ -95,6 +97,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 
 			Document document = new Document(PageSize.A4);
 			PdfWriter writer = PdfWriter.getInstance(document, out);
+			document.open();
 			Font venabheader = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H,
 					BaseFont.EMBEDDED);
 			venabheader.setSize(14);
@@ -119,6 +122,9 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					BaseFont.EMBEDDED);
 			normalFontH.setSize(12);
 			normalFontH.setStyle(Font.NORMAL);
+			
+	        BaseFont baseFont = BaseFont.createFont("fonts/Latha-Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+	        Font tamilFont = new Font(baseFont, 12); 
 			// Font tamilFont = FontFactory.getFont("/home/ec2-user/Tamil003.ttf",
 			// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			// Font tamilFont = FontFactory.getFont(filepath.concat("Latha.ttf"),
@@ -338,57 +344,65 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			para8.setSpacingAfter(20f);
 			document.add(para8);
 
-			float[] pointColumnWidths5 = { 20f, 12f, 12f, 12f, 12f, 12f, 12f, 12f };
+			float[] pointColumnWidths5 = { 20f, 14f, 12f, 12f, 12f, 12f, 12f, 12f };
 			PdfPTable treatmenttable = new PdfPTable(pointColumnWidths5);
 			treatmenttable.setWidthPercentage(100);
 			treatmenttable.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 			// table headers
 
-			PdfPCell tablecheckup13 = new PdfPCell(Image.getInstance(filepath.concat("drug.jpg")), true);
+			//InputStream imageStream = getClass().getClassLoader().getResourceAsStream("images/drug.jpg");
+			PdfPCell tablecheckup13 = createPdfPCellWithPhrase("MEDICINES", boldFont1);
 			tablecheckup13.setHorizontalAlignment(Element.ALIGN_CENTER);
 			// BaseColor myColor = WebColors.getRGBColor("#C9C9C9");
 			tablecheckup13.setFixedHeight(20f);
 			// tablecheckup13.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup13);
 
-			PdfPCell tablecheckup14 = new PdfPCell(Image.getInstance(filepath.concat("morng.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/morng.jpg");
+			PdfPCell tablecheckup14 =createPdfPCellWithPhrase("MORNING", boldFont1);
 			tablecheckup14.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup14.setFixedHeight(20f);
 			// tablecheckup14.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup14);
 
-			PdfPCell tablecheckup15 = new PdfPCell(Image.getInstance(filepath.concat("noon.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/noon.jpg");
+			PdfPCell tablecheckup15 =createPdfPCellWithPhrase("NOON", boldFont1);
 			tablecheckup15.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup15.setFixedHeight(20f);
 			// tablecheckup15.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup15);
 
-			PdfPCell tablecheckup16 = new PdfPCell(Image.getInstance(filepath.concat("eve.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/eve.jpg");
+			PdfPCell tablecheckup16 = createPdfPCellWithPhrase("EVENING", boldFont1);
 			tablecheckup16.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup16.setFixedHeight(20f);
 			// tablecheckup16.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup16);
 
-			PdfPCell tablecheckup17 = new PdfPCell(Image.getInstance(filepath.concat("night.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/night.jpg");
+			PdfPCell tablecheckup17 = createPdfPCellWithPhrase("NIGHT", boldFont1);
 			tablecheckup17.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup17.setFixedHeight(20f);
 			// tablecheckup17.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup17);
 
-			PdfPCell tablecheckup18 = new PdfPCell(Image.getInstance(filepath.concat("bf.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/bf.jpg");
+			PdfPCell tablecheckup18 = createPdfPCellWithPhrase("BEFORE FOOD", boldFont1);
 			tablecheckup18.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup18.setFixedHeight(30f);
 			// tablecheckup18.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup18);
 
-			PdfPCell tablecheckup19 = new PdfPCell(Image.getInstance(filepath.concat("af.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/af.jpg");
+			PdfPCell tablecheckup19 =createPdfPCellWithPhrase("AFTER FOOD", boldFont1);
 			tablecheckup19.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup19.setFixedHeight(30f);
 			// tablecheckup19.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup19);
 
-			PdfPCell tablecheckup20 = new PdfPCell(Image.getInstance(filepath.concat("days.jpg")), true);
+			//imageStream = getClass().getClassLoader().getResourceAsStream("images/days.jpg");
+			PdfPCell tablecheckup20 =createPdfPCellWithPhrase("DAYS", boldFont1);
 			tablecheckup20.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup20.setFixedHeight(20f);
 			// tablecheckup20.setBorder(Rectangle.NO_BORDER);
@@ -500,7 +514,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 		FontSelector selector = new FontSelector();
 		BaseFont base;
 		try {
-			base = BaseFont.createFont(filepath.concat("DejaVuSans.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			base = BaseFont.createFont("fonts/DejaVuSans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			selector.addFont(FontFactory.getFont(FontFactory.HELVETICA, 12));
 			selector.addFont(new Font(base, 12));
 		} catch (DocumentException e) {

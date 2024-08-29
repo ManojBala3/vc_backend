@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.Model.CustomerResponse;
 import com.Model.UserModel;
 import com.services.UserService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/venbaclinic/user")
 public class UserController
 {
 	static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -49,6 +48,12 @@ public class UserController
 	public CustomerResponse getalldata(@PathParam("limit")String limit,@PathParam("offset")String offset)
 	{
 		return userservice.fetchalluser(limit,offset);
+	}
+	
+	@PostMapping("/searchuser")
+	public CustomerResponse searchdata(@RequestBody UserModel request,@PathParam("limit")String limit,@PathParam("offset")String offset)
+	{
+		return userservice.searchuser(limit,offset,request);
 	}
 
 }

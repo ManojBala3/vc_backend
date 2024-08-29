@@ -25,9 +25,9 @@ import com.common.Commonservice;
 import com.services.CollectorService;
 
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/venbaclinic")
 public class CollectorController
 {
 	static final Logger logger = LoggerFactory.getLogger(CollectorController.class);

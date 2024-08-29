@@ -16,9 +16,9 @@ import com.Model.CustomerRequest;
 import com.Model.CustomerResponse;
 import com.services.PatientQueueService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
-@RequestMapping("/queue")
+@RequestMapping("/venbaclinic/queue")
 public class PatientQueueController {
 	
 	static final Logger logger = LoggerFactory.getLogger(PatientQueueController.class);
