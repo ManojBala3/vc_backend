@@ -91,12 +91,6 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 					custdata.setCreateddate(timestamp);
 					custdata.setCustomerid(collectorservice.generatecustid());
 				}
-				else
-				{
-					response.setRespcode("01");
-					response.setRespdesc("Customer with Mobile Number "+request.getCustomermobile() +" Already Exists");
-					return response;
-				}
 			}
 			custdata.setCustname(request.getCustomername());
 			if(request.getCustomergender()!=null)
@@ -323,7 +317,10 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				visitdetails.setAgeweek(request.getCustomerageweek());
 				visitdetails.setAgeday(request.getCustomerageday());
 				visitdetails.setAdvice(request.getComments());
-				visitdetails.setQueuestatus("Completed");
+				if(request.isAddqueue())
+					visitdetails.setQueuestatus("Waiting");
+				else		
+					visitdetails.setQueuestatus("Completed");
 				visitdao.save(visitdetails);
 			}
 			custdata=customerDao.getcustwithmobile(request.getCustomermobile());
