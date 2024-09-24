@@ -16,7 +16,7 @@ import com.Model.CustomerResponse;
 import com.Model.UserModel;
 import com.services.UserService;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic/user")
 public class UserController

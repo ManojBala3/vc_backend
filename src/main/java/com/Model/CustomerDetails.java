@@ -63,6 +63,102 @@ public class CustomerDetails {
 				+ ", stringdob=" + stringdob + ", createddate=" + createddate + "]";
 	}
 
+	public int getCustid() {
+		return custid;
+	}
+
+	public void setCustid(int custid) {
+		this.custid = custid;
+	}
+
+	public String getMobileno() {
+		return mobileno;
+	}
+
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
+	}
+
+	public String getCustname() {
+		return custname;
+	}
+
+	public void setCustname(String custname) {
+		this.custname = custname;
+	}
+
+	public String getEmailid() {
+		return emailid;
+	}
+
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public String getStringdob() {
+		return stringdob;
+	}
+
+	public void setStringdob(String stringdob) {
+		this.stringdob = stringdob;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public Timestamp getCreateddate() {
+		return createddate;
+	}
+
+	public void setCreateddate(Timestamp createddate) {
+		this.createddate = createddate;
+	}
+
 	
 	
 	

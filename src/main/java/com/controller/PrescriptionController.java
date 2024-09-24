@@ -18,7 +18,7 @@ import com.Model.CustomerRequest;
 import com.Model.CustomerResponse;
 import com.services.Prescriptionservice;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic/visit")
 public class PrescriptionController 

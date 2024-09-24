@@ -47,7 +47,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 
@@ -98,32 +98,22 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			Document document = new Document(PageSize.A4);
 			PdfWriter writer = PdfWriter.getInstance(document, out);
 			document.open();
-			Font venabheader = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H,
-					BaseFont.EMBEDDED);
-			venabheader.setSize(14);
+			 BaseFont baseFont = BaseFont.createFont("fonts/segoe-ui-semilight.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			 Font venabheader = new Font(baseFont, 14); ;
 			// venabheader.setStyle(Font.BOLD);
-			Font boldFont1 = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-			boldFont1.setSize(11);
+			Font boldFont1 = new Font(baseFont, 11); 
 			boldFont1.setStyle(Font.BOLD);
-			Font boldFontS = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-			boldFontS.setSize(10);
+			Font boldFontS = new Font(baseFont, 10); 
 			// boldFontS.setStyle(Font.BOLD);
-			Font boldFont2 = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-			boldFont2.setSize(14);
+			Font boldFont2 = new Font(baseFont, 14); 
 			// boldFont2.setStyle(Font.BOLD);
-			Font normalFont = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-			normalFont.setSize(11);
+			Font normalFont = new Font(baseFont, 11); 
 			normalFont.setStyle(Font.NORMAL);
-			Font normalFontL = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H,
-					BaseFont.EMBEDDED);
-			normalFontL.setSize(10);
+			Font normalFontL = new Font(baseFont, 10); 
 			normalFontL.setStyle(Font.NORMAL);
-			Font normalFontH = FontFactory.getFont(filepath.concat("Segoe.ttf"), BaseFont.IDENTITY_H,
-					BaseFont.EMBEDDED);
-			normalFontH.setSize(12);
+			Font normalFontH =new Font(baseFont, 12); 
 			normalFontH.setStyle(Font.NORMAL);
 			
-	        BaseFont baseFont = BaseFont.createFont("fonts/Latha-Bold.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 	        Font tamilFont = new Font(baseFont, 12); 
 			// Font tamilFont = FontFactory.getFont("/home/ec2-user/Tamil003.ttf",
 			// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
@@ -477,15 +467,17 @@ public class InvoicePdfController extends PdfPageEventHelper {
 				}
 			}
 			document.add(treatmenttable);
-
+			
+			
 			Chunk chunk4 = new Chunk(presp.comments + "", normalFontH);
 			Paragraph para9 = new Paragraph();
 			// para7.setSpacingBefore(5f);
 			para9.add(chunk4);
 			para9.setSpacingAfter(20f);
-			Rectangle rect1 = new Rectangle(100, 150, 30, 100);
+			Rectangle rect1 = new Rectangle(100, 180, 30, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para9, rect1.getRight(),
 					rect1.getBottom(), 0);
+			
 
 			Chunk chunk5 = new Chunk("Next Review: ", normalFont);
 			Chunk chunk6 = new Chunk();
@@ -496,9 +488,18 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			para10.add(chunk5);
 			para10.add(chunk6);
 			para10.setSpacingAfter(20f);
-			Rectangle rect2 = new Rectangle(100, 120, 30, 100);
+			Rectangle rect2 = new Rectangle(100, 150, 30, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para10, rect2.getRight(),
 					rect2.getBottom(), 0);
+			
+			Chunk chunk7 = new Chunk("Follow us at www.venbaclinic.com" + "", normalFontH);
+			Paragraph para11 = new Paragraph();
+			// para7.setSpacingBefore(5f);
+			para11.add(chunk7);
+			para11.setSpacingAfter(20f);
+			Rectangle rect3 = new Rectangle(100, 120, 30, 100);
+			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para11, rect3.getRight(),
+					rect3.getBottom(), 0);
 
 			document.close();
 		} catch (Exception e) {

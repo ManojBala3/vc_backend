@@ -16,7 +16,7 @@ import com.Model.CustomerRequest;
 import com.Model.CustomerResponse;
 import com.services.PatientQueueService;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic/queue")
 public class PatientQueueController {

@@ -39,5 +39,45 @@ public class ErrorLogDetails
 		this.error_msg = error_msg;
 		this.request = request;
 	}
+
+	public int getErrorid() {
+		return errorid;
+	}
+
+	public void setErrorid(int errorid) {
+		this.errorid = errorid;
+	}
+
+	public String getModule() {
+		return module;
+	}
+
+	public void setModule(String module) {
+		this.module = module;
+	}
+
+	public Timestamp getCreateddate() {
+		return createddate;
+	}
+
+	public void setCreateddate(Timestamp createddate) {
+		this.createddate = createddate;
+	}
+
+	public String getError_msg() {
+		return error_msg;
+	}
+
+	public void setError_msg(String error_msg) {
+		this.error_msg = error_msg;
+	}
+
+	public String getRequest() {
+		return request;
+	}
+
+	public void setRequest(String request) {
+		this.request = request;
+	}
 	
 }

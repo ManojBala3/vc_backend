@@ -23,7 +23,7 @@ import com.Model.CustomerResponse;
 import com.Model.MedicineDetails;
 import com.services.MedicineService;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic/medicine")
 
