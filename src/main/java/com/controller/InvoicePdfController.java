@@ -23,7 +23,6 @@ import com.Model.AddPrescriptionRequest;
 import com.Model.CustomerResponse;
 import com.Model.PrescriptionDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.InputStream;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -31,7 +30,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -47,7 +45,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 
@@ -58,8 +56,8 @@ public class InvoicePdfController extends PdfPageEventHelper {
 	@Autowired
 	Prescriptionservice prescriptiondao;
 
-	 String filepath="/home/ec2-user/staticdata_VC/";
-	//String filepath = "E:\\";
+	String filepath = "/home/ec2-user/staticdata_VC/";
+	// String filepath = "E:\\";
 
 	@GetMapping(path = "/generatepdf/{visitid}")
 	public ResponseEntity<InputStreamResource> generateInvoicePdf(@PathVariable String visitid) {
@@ -98,23 +96,26 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			Document document = new Document(PageSize.A4);
 			PdfWriter writer = PdfWriter.getInstance(document, out);
 			document.open();
-			 BaseFont baseFont = BaseFont.createFont("fonts/segoe-ui-semilight.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-			 Font venabheader = new Font(baseFont, 14); ;
+			BaseFont baseFont = BaseFont.createFont("fonts/segoe-ui-semilight.ttf", BaseFont.IDENTITY_H,
+					BaseFont.EMBEDDED);
+			Font venabheader = new Font(baseFont, 14);
+			;
 			// venabheader.setStyle(Font.BOLD);
-			Font boldFont1 = new Font(baseFont, 11); 
+			Font boldFont1 = new Font(baseFont, 11);
 			boldFont1.setStyle(Font.BOLD);
-			Font boldFontS = new Font(baseFont, 10); 
-			// boldFontS.setStyle(Font.BOLD);
-			Font boldFont2 = new Font(baseFont, 14); 
+			Font boldFontS = new Font(baseFont, 10);
+			boldFontS.setStyle(Font.BOLD);
+			Font boldFont2 = new Font(baseFont, 14);
 			// boldFont2.setStyle(Font.BOLD);
-			Font normalFont = new Font(baseFont, 11); 
+			Font normalFont = new Font(baseFont, 11);
 			normalFont.setStyle(Font.NORMAL);
-			Font normalFontL = new Font(baseFont, 10); 
+			Font normalFontL = new Font(baseFont, 10);
 			normalFontL.setStyle(Font.NORMAL);
-			Font normalFontH =new Font(baseFont, 12); 
+			Font normalFontH = new Font(baseFont, 12);
 			normalFontH.setStyle(Font.NORMAL);
-			
-	        Font tamilFont = new Font(baseFont, 12); 
+
+			Font kannanfont = new Font(baseFont, 12);
+			Font tamilFont = new Font(baseFont, 12);
 			// Font tamilFont = FontFactory.getFont("/home/ec2-user/Tamil003.ttf",
 			// BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			// Font tamilFont = FontFactory.getFont(filepath.concat("Latha.ttf"),
@@ -124,8 +125,6 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			Rectangle rect = new Rectangle(100, 120, 520, 100);
 
 			writer.setBoxSize("art", rect);
-			HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-			writer.setPageEvent(event);
 			document.open();
 
 			float[] pointColumnWidthsh = { 50F, 50F };
@@ -273,7 +272,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			table2.addCell(table2_cell3);
 
 			PdfPCell table2_cell4 = null;
-			if (presp.getWeight() == 0)
+			if (presp.getHeight() == 0)
 				table2_cell4 = new PdfPCell();
 			else
 				table2_cell4 = createPdfPCellWithPhrase2("Height: ", presp.getHeight() + " ".concat("cm"), boldFont1,
@@ -290,7 +289,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			table2.addCell(table2_cell5);
 
 			PdfPCell table2_cell6 = null;
-			if (presp.getWeight() == 0)
+			if (presp.getHc() == 0)
 				table2_cell6 = new PdfPCell();
 			else
 				table2_cell6 = createPdfPCellWithPhrase2("HC: ", presp.getHc() + " ".concat("cm"), boldFont1,
@@ -334,76 +333,102 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			para8.setSpacingAfter(20f);
 			document.add(para8);
 
-			float[] pointColumnWidths5 = { 20f, 14f, 12f, 12f, 12f, 12f, 12f, 12f };
+			float[] pointColumnWidths5 = { 30f, 10f, 10f, 10f, 10f, 10f, 10f, 10f };
 			PdfPTable treatmenttable = new PdfPTable(pointColumnWidths5);
 			treatmenttable.setWidthPercentage(100);
 			treatmenttable.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 			// table headers
 
-			//InputStream imageStream = getClass().getClassLoader().getResourceAsStream("images/drug.jpg");
-			PdfPCell tablecheckup13 = createPdfPCellWithPhrase("MEDICINES", boldFont1);
+			// InputStream imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/drug.jpg");
+			PdfPCell tablecheckup13 = createPdfPCellWithPhrase("MEDICINES", boldFontS);
 			tablecheckup13.setHorizontalAlignment(Element.ALIGN_CENTER);
 			// BaseColor myColor = WebColors.getRGBColor("#C9C9C9");
-			tablecheckup13.setFixedHeight(20f);
+			tablecheckup13.setFixedHeight(30f);
 			// tablecheckup13.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup13);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/morng.jpg");
-			PdfPCell tablecheckup14 =createPdfPCellWithPhrase("MORNING", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/morng.jpg");
+			PdfPCell tablecheckup14 = createPdfPCellWithPhrase("MORNING", boldFontS);
 			tablecheckup14.setHorizontalAlignment(Element.ALIGN_CENTER);
-			tablecheckup14.setFixedHeight(20f);
+			tablecheckup14.setFixedHeight(10f);
 			// tablecheckup14.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup14);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/noon.jpg");
-			PdfPCell tablecheckup15 =createPdfPCellWithPhrase("NOON", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/noon.jpg");
+			PdfPCell tablecheckup15 = createPdfPCellWithPhrase("NOON", boldFontS);
 			tablecheckup15.setHorizontalAlignment(Element.ALIGN_CENTER);
-			tablecheckup15.setFixedHeight(20f);
+			tablecheckup15.setFixedHeight(10f);
 			// tablecheckup15.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup15);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/eve.jpg");
-			PdfPCell tablecheckup16 = createPdfPCellWithPhrase("EVENING", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/eve.jpg");
+			PdfPCell tablecheckup16 = createPdfPCellWithPhrase("EVENING", boldFontS);
 			tablecheckup16.setHorizontalAlignment(Element.ALIGN_CENTER);
-			tablecheckup16.setFixedHeight(20f);
+			tablecheckup16.setFixedHeight(10f);
 			// tablecheckup16.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup16);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/night.jpg");
-			PdfPCell tablecheckup17 = createPdfPCellWithPhrase("NIGHT", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/night.jpg");
+			PdfPCell tablecheckup17 = createPdfPCellWithPhrase("NIGHT", boldFontS);
 			tablecheckup17.setHorizontalAlignment(Element.ALIGN_CENTER);
-			tablecheckup17.setFixedHeight(20f);
+			tablecheckup17.setFixedHeight(10f);
 			// tablecheckup17.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup17);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/bf.jpg");
-			PdfPCell tablecheckup18 = createPdfPCellWithPhrase("BEFORE FOOD", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/bf.jpg");
+			PdfPCell tablecheckup18 = createPdfPCellWithPhrase("BEFORE FOOD", boldFontS);
 			tablecheckup18.setHorizontalAlignment(Element.ALIGN_CENTER);
-			tablecheckup18.setFixedHeight(30f);
+			tablecheckup18.setFixedHeight(20f);
 			// tablecheckup18.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup18);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/af.jpg");
-			PdfPCell tablecheckup19 =createPdfPCellWithPhrase("AFTER FOOD", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/af.jpg");
+			PdfPCell tablecheckup19 = createPdfPCellWithPhrase("AFTER FOOD", boldFontS);
 			tablecheckup19.setHorizontalAlignment(Element.ALIGN_CENTER);
-			tablecheckup19.setFixedHeight(30f);
+			tablecheckup19.setFixedHeight(20f);
 			// tablecheckup19.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup19);
 
-			//imageStream = getClass().getClassLoader().getResourceAsStream("images/days.jpg");
-			PdfPCell tablecheckup20 =createPdfPCellWithPhrase("DAYS", boldFont1);
+			// imageStream =
+			// getClass().getClassLoader().getResourceAsStream("images/days.jpg");
+			PdfPCell tablecheckup20 = createPdfPCellWithPhrase("DAYS", boldFontS);
 			tablecheckup20.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup20.setFixedHeight(20f);
 			// tablecheckup20.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup20);
 
 			for (int i = 0; i < presp.getProducts().size(); i++) {
+				
+				if(i==7)
+				{
+					document.add(treatmenttable);
+					document.newPage();  
+					document.add(new Phrase("\n"));
+					Paragraph para3 = new Paragraph();
+					para3.setSpacingBefore(70);
+					document.add(para3);
+					
+					treatmenttable = new PdfPTable(pointColumnWidths5);
+					treatmenttable.setPaddingTop(120f);
+					treatmenttable.setWidthPercentage(100);
+					treatmenttable.setHorizontalAlignment(Element.ALIGN_CENTER);
+				}
+				
+					
 				PrescriptionDetails pd = presp.getProducts().get(i);
-				PdfPCell tablecheckup21 = createPdfPCellWithPhrase(pd.getDrugname(), normalFontL);
-				tablecheckup21.setHorizontalAlignment(Element.ALIGN_CENTER);
+				PdfPCell tablecheckup21 = createPdfPCellWithPhrase(pd.getDrugname(), normalFont);
+				tablecheckup21.setHorizontalAlignment(Element.ALIGN_LEFT);
 				tablecheckup21.setFixedHeight(30f);
 				tablecheckup21.setPaddingTop(5);
+				tablecheckup21.setPaddingLeft(5);
 				treatmenttable.addCell(tablecheckup21);
 
 				String value = "";
@@ -411,7 +436,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					value = pd.getMedtype();
 
 				if (pd.getMedtype().equalsIgnoreCase("others")) {
-					PdfPCell tablecheckup22 = createPdfPCellWithPhrase(pd.getAddinfo(), normalFontL);
+					PdfPCell tablecheckup22 = createPdfPCellWithPhrase(pd.getAddinfo(), normalFont);
 					tablecheckup22.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup22.setColspan(7);
 					tablecheckup22.setFixedHeight(30f);
@@ -419,28 +444,28 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					treatmenttable.addCell(tablecheckup22);
 				} else {
 					PdfPCell tablecheckup22 = createPdfPCellWithPhrase(convertinttostr(pd.getMorning(), value),
-							normalFontL);
+							normalFont);
 					tablecheckup22.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup22.setFixedHeight(30f);
 					tablecheckup22.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup22);
 
 					PdfPCell tablecheckup23 = createPdfPCellWithPhrase(convertinttostr(pd.getNoon(), value),
-							normalFontL);
+							normalFont);
 					tablecheckup23.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup23.setFixedHeight(30f);
 					tablecheckup23.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup23);
 
 					PdfPCell tablecheckup24 = createPdfPCellWithPhrase(convertinttostr(pd.getEvening(), value),
-							normalFontL);
+							normalFont);
 					tablecheckup24.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup24.setFixedHeight(30f);
 					tablecheckup24.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup24);
 
 					PdfPCell tablecheckup25 = createPdfPCellWithPhrase(convertinttostr(pd.getNight(), value),
-							normalFontL);
+							normalFont);
 					tablecheckup25.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup25.setFixedHeight(30f);
 					tablecheckup25.setPaddingTop(5);
@@ -459,7 +484,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					treatmenttable.addCell(tablecheckup27);
 
 					PdfPCell tablecheckup28 = createPdfPCellWithPhrase(convertinttostr(pd.getDuration(), ""),
-							normalFontL);
+							normalFont);
 					tablecheckup28.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup28.setPaddingTop(5);
 					tablecheckup28.setFixedHeight(30f);
@@ -467,17 +492,15 @@ public class InvoicePdfController extends PdfPageEventHelper {
 				}
 			}
 			document.add(treatmenttable);
-			
-			
+
 			Chunk chunk4 = new Chunk(presp.comments + "", normalFontH);
 			Paragraph para9 = new Paragraph();
 			// para7.setSpacingBefore(5f);
 			para9.add(chunk4);
-			para9.setSpacingAfter(20f);
-			Rectangle rect1 = new Rectangle(100, 180, 30, 100);
+			para9.setSpacingAfter(15f);
+			Rectangle rect1 = new Rectangle(50, 135, 30, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para9, rect1.getRight(),
 					rect1.getBottom(), 0);
-			
 
 			Chunk chunk5 = new Chunk("Next Review: ", normalFont);
 			Chunk chunk6 = new Chunk();
@@ -487,19 +510,28 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			// para7.setSpacingBefore(5f);
 			para10.add(chunk5);
 			para10.add(chunk6);
-			para10.setSpacingAfter(20f);
-			Rectangle rect2 = new Rectangle(100, 150, 30, 100);
+			para10.setSpacingAfter(15f);
+			Rectangle rect2 = new Rectangle(50, 110, 30, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para10, rect2.getRight(),
 					rect2.getBottom(), 0);
-			
+
 			Chunk chunk7 = new Chunk("Follow us at www.venbaclinic.com" + "", normalFontH);
 			Paragraph para11 = new Paragraph();
 			// para7.setSpacingBefore(5f);
 			para11.add(chunk7);
-			para11.setSpacingAfter(20f);
-			Rectangle rect3 = new Rectangle(100, 120, 30, 100);
+			para11.setSpacingAfter(15f);
+			Rectangle rect3 = new Rectangle(50, 85, 30, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para11, rect3.getRight(),
 					rect3.getBottom(), 0);
+
+			Chunk chunk8 = new Chunk("Dr. C. Kannan", kannanfont);
+			Paragraph para12 = new Paragraph();
+			// para7.setSpacingBefore(5f);
+			para12.add(chunk8);
+			para12.setSpacingAfter(15f);
+			Rectangle rect4 = new Rectangle(50, 85, 490, 20);
+			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para12, rect4.getRight(),
+					rect4.getBottom(), 0);
 
 			document.close();
 		} catch (Exception e) {
