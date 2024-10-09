@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,7 +165,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			if (presp.getCustomerageday() != 0)
 				age = age.concat(" " + presp.getCustomerageday() + "D ");
 			// gender
-			if (presp.getCustomergender() != null && !presp.getCustomergender().equals("")) {
+			if (presp.getCustomergender() != null && !presp.getCustomergender().isEmpty()) {
 				String changegender = "";
 				if ((presp.getCustomergender().charAt(0) + "").equalsIgnoreCase("B"))
 					changegender = " B";
@@ -181,8 +182,8 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			Chunk tchunk8 = new Chunk(df.format(d1), normalFont);
 			Paragraph ph = new Paragraph();
 			ph.setKeepTogether(false);
-			String arr[] = adjustspace(presp.getCustomername().length() + 6, age.length() + 5,
-					presp.getPatientid().length() + 5, 0);
+			String[] arr = adjustspace(presp.getCustomername().length() + 6, age.length() + 5,
+					presp.getPatientid().length() + 5);
 			// System.out.println( arr[0].length()+" "+arr[1].length()+" "+arr[2].length()+"
 			// ");
 			ph.add(tchunk1);
@@ -208,33 +209,6 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			tableCell3.setBorderColorRight(white);
 			tableCell3.setBorder(Rectangle.NO_BORDER);
 			myReportTable.addCell(tableCell3);
-//
-//           
-//            
-//            PdfPCell tableCell4 = createPdfPCellWithPhrase2("A/G : ",age, boldFont1,normalFont);
-//            tableCell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-//            tableCell4.setColspan(1);
-//            tableCell4.setFixedHeight(23f);
-//            tableCell4.setCellEvent(new RoundRectangle());
-//            tableCell4.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-//            //myReportTable.addCell(tableCell4);
-//            
-//            PdfPCell tableCell5 = createPdfPCellWithPhrase2("UID : ",presp.getPatientid(),boldFont1, normalFont);
-//            tableCell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-//            tableCell5.setColspan(1);
-//            tableCell5.setFixedHeight(23f);
-//            tableCell5.setCellEvent(new RoundRectangle());
-//            tableCell5.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-//           // myReportTable.addCell(tableCell5);
-//            
-//            
-//            PdfPCell tableCell6 = createPdfPCellWithPhrase2("Visit Date : ",df.format(d1) ,boldFont1, normalFont);
-//            tableCell6.setHorizontalAlignment(Element.ALIGN_LEFT);
-//            tableCell6.setColspan(1);
-//            tableCell6.setFixedHeight(23f);
-//            tableCell6.setCellEvent(new RoundRectangle());
-//            tableCell6.setBorder(Rectangle.TOP | Rectangle.RIGHT | Rectangle.BOTTOM);
-//            //myReportTable.addCell(tableCell6);
 
 			document.add(myReportTable);
 
@@ -404,10 +378,11 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			tablecheckup20.setFixedHeight(20f);
 			// tablecheckup20.setBorder(Rectangle.NO_BORDER);
 			treatmenttable.addCell(tablecheckup20);
-
+			ArrayList<PrescriptionDetails> others_pre=new ArrayList<>();
+			int medicinecount=0;
 			for (int i = 0; i < presp.getProducts().size(); i++) {
 				
-				if(i==7)
+				if(i==6)
 				{
 					document.add(treatmenttable);
 					document.newPage();  
@@ -421,10 +396,13 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					treatmenttable.setWidthPercentage(100);
 					treatmenttable.setHorizontalAlignment(Element.ALIGN_CENTER);
 				}
-				
-					
+				if(presp.getProducts().get(i).getMedtype().equalsIgnoreCase("others")) {
+					others_pre.add(presp.getProducts().get(i));
+					continue;
+				}
+				medicinecount++;
 				PrescriptionDetails pd = presp.getProducts().get(i);
-				PdfPCell tablecheckup21 = createPdfPCellWithPhrase(pd.getDrugname(), normalFont);
+				PdfPCell tablecheckup21 = createPdfPCellWithPhrase(medicinecount +". "+pd.getDrugname(), normalFont);
 				tablecheckup21.setHorizontalAlignment(Element.ALIGN_LEFT);
 				tablecheckup21.setFixedHeight(30f);
 				tablecheckup21.setPaddingTop(5);
@@ -491,14 +469,30 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					treatmenttable.addCell(tablecheckup28);
 				}
 			}
+			for(PrescriptionDetails otherdata:others_pre){
+				medicinecount++;
+				PdfPCell tablecheckup21 = createPdfPCellWithPhrase(medicinecount +". "+otherdata.getDrugname(), normalFont);
+				tablecheckup21.setHorizontalAlignment(Element.ALIGN_LEFT);
+				tablecheckup21.setFixedHeight(30f);
+				tablecheckup21.setPaddingTop(5);
+				tablecheckup21.setPaddingLeft(5);
+				treatmenttable.addCell(tablecheckup21);
+
+				PdfPCell tablecheckup22 = createPdfPCellWithPhrase(otherdata.getAddinfo(), normalFont);
+				tablecheckup22.setHorizontalAlignment(Element.ALIGN_CENTER);
+				tablecheckup22.setColspan(7);
+				tablecheckup22.setFixedHeight(30f);
+				tablecheckup22.setPaddingTop(5);
+				treatmenttable.addCell(tablecheckup22);
+			}
 			document.add(treatmenttable);
 
-			Chunk chunk4 = new Chunk(presp.comments + "", normalFontH);
+			Chunk chunk4 = new Chunk(presp.comments, normalFontH);
 			Paragraph para9 = new Paragraph();
 			// para7.setSpacingBefore(5f);
 			para9.add(chunk4);
 			para9.setSpacingAfter(15f);
-			Rectangle rect1 = new Rectangle(50, 135, 30, 100);
+			Rectangle rect1 = new Rectangle(50, 195, 35, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para9, rect1.getRight(),
 					rect1.getBottom(), 0);
 
@@ -511,16 +505,16 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			para10.add(chunk5);
 			para10.add(chunk6);
 			para10.setSpacingAfter(15f);
-			Rectangle rect2 = new Rectangle(50, 110, 30, 100);
+			Rectangle rect2 = new Rectangle(60, 170, 35, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para10, rect2.getRight(),
 					rect2.getBottom(), 0);
 
-			Chunk chunk7 = new Chunk("Follow us at www.venbaclinic.com" + "", normalFontH);
+			Chunk chunk7 = new Chunk("Follow us at www.venbaclinic.com", normalFontH);
 			Paragraph para11 = new Paragraph();
 			// para7.setSpacingBefore(5f);
 			para11.add(chunk7);
 			para11.setSpacingAfter(15f);
-			Rectangle rect3 = new Rectangle(50, 85, 30, 100);
+			Rectangle rect3 = new Rectangle(60, 145, 35, 100);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para11, rect3.getRight(),
 					rect3.getBottom(), 0);
 
@@ -529,13 +523,12 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			// para7.setSpacingBefore(5f);
 			para12.add(chunk8);
 			para12.setSpacingAfter(15f);
-			Rectangle rect4 = new Rectangle(50, 85, 490, 20);
+			Rectangle rect4 = new Rectangle(60, 145, 490, 20);
 			ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, para12, rect4.getRight(),
 					rect4.getBottom(), 0);
 
 			document.close();
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getLocalizedMessage());
 		}
 
@@ -550,14 +543,11 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			base = BaseFont.createFont("fonts/DejaVuSans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			selector.addFont(FontFactory.getFont(FontFactory.HELVETICA, 12));
 			selector.addFont(new Font(base, 12));
-		} catch (DocumentException e) {
+		} catch (DocumentException | IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
-		if (value.equals(true))
+        if (value.equals(true))
 			return selector.process(String.valueOf(tickSymbol));
 		else
 			return selector.process("-");
@@ -571,13 +561,11 @@ public class InvoicePdfController extends PdfPageEventHelper {
 	}
 
 	private PdfPCell createPdfPCellWithPhrase(String text, Font font) {
-		PdfPCell tableCell = new PdfPCell(new Phrase(text, font));
-		return tableCell;
+        return new PdfPCell(new Phrase(text, font));
 	}
 
 	private PdfPCell createPdfPCellWithPhrase(Phrase ph) {
-		PdfPCell tableCell = new PdfPCell(ph);
-		return tableCell;
+        return new PdfPCell(ph);
 	}
 
 	private PdfPCell createPdfPCellWithPhrase2(String text1, String text2, Font font1, Font font2) {
@@ -586,8 +574,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 		Phrase ph = new Phrase();
 		ph.add(chunk1);
 		ph.add(chunk2);
-		PdfPCell tableCell = new PdfPCell(ph);
-		return tableCell;
+        return new PdfPCell(ph);
 	}
 
 	private PdfPCell createPdfPCellWithPhrase(String text, Font font, BaseColor backgroundColor) {
@@ -596,7 +583,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 		return tableCell;
 	}
 
-	class RoundRectangle implements PdfPCellEvent {
+	static class RoundRectangle implements PdfPCellEvent {
 		public void cellLayout(PdfPCell cell, Rectangle rect, PdfContentByte[] canvas) {
 			PdfContentByte cb = canvas[PdfPTable.LINECANVAS];
 			// cb.setColorStroke(new GrayColor(0.8f));
@@ -607,14 +594,14 @@ public class InvoicePdfController extends PdfPageEventHelper {
 		}
 	}
 
-	private String[] adjustspace(int name, int age, int uid, int date) {
+	private String[] adjustspace(int name, int age, int uid) {
 		String space = " ";
 		String[] extra = new String[3];
 		extra[0] = "";// initialization
 		extra[1] = "";
 		extra[2] = "";
 		int total = 90;
-		int current = name + age + uid + date;
+		int current = name + age + uid;
 		if ((current) < total) {
 			while ((current + 3) <= total) {
 				for (int i = 0; i < extra.length; i++) {
