@@ -11,6 +11,7 @@ public class AddPrescriptionRequest
 {
 	public String custid;
 	public String patientid;
+	public String oldPatientId;
 	public String visitid;
 	public String customername;
 	public int customerageyear;
@@ -34,6 +35,13 @@ public class AddPrescriptionRequest
 	public ArrayList<PrescriptionDetails> products;
 	private boolean addqueue=false;
 	
+	public String getOldPatientid() {
+		return oldPatientId;
+	}
+
+	public void setOldPatientid(String oldPatientid) {
+		this.oldPatientId = oldPatientid;
+	}
 	public boolean isAddqueue() {
 		return addqueue;
 	}

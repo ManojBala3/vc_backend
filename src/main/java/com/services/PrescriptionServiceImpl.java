@@ -89,7 +89,17 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				{
 					custdata=new CustomerDetails();
 					custdata.setCreateddate(timestamp);
-					custdata.setCustomerid(collectorservice.generatecustid());
+					if (request.getOldPatientid() != null && !request.getOldPatientid().isEmpty()) {
+					    if (request.getOldPatientid().matches("\\d{6}[A-Za-z]")) {
+					        custdata.setCustomerid(request.getOldPatientid());
+					    } else {
+					    	System.out.println("Invalid old patient ID format. It must be 6 digits followed by 1 letter.");
+					    	throw new Exception("Invalid old patient ID format. It must be 6 digits followed by 1 letter.");
+					    }
+					} else {
+						custdata.setCustomerid(collectorservice.generatecustid());
+					    System.out.println("Old patient ID is null or empty. So, Generating new patientID");
+					}
 				}
 			}
 			custdata.setCustname(request.getCustomername());
