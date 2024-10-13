@@ -21,57 +21,48 @@ import com.services.Prescriptionservice;
 @CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic/visit")
-public class PrescriptionController 
-{
+public class PrescriptionController {
 	static final Logger logger = LoggerFactory.getLogger(PrescriptionController.class);
-	
+
 	@Autowired
 	private Prescriptionservice service;
-	
+
 	@GetMapping("/getdata")
-	public CustomerResponse getallvisits(@PathParam("limit")String limit,@PathParam("offset")String offset)
-	{
-		CustomerResponse response=new CustomerResponse();
-		try
-		{
+	public CustomerResponse getallvisits(@PathParam("limit") String limit, @PathParam("offset") String offset) {
+		CustomerResponse response = new CustomerResponse();
+		try {
 			return service.getallvistdtls(limit, offset);
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			response.setRespcode("FF");
 			response.setRespdesc("Some Error Occured!");
 		}
 		return response;
 	}
-	
+
 	@PostMapping("/saveprescrption")
-	public CustomerResponse saveprescription(@RequestBody AddPrescriptionRequest request)
-	{
+	public CustomerResponse saveprescription(@RequestBody AddPrescriptionRequest request) {
 		return service.saveprescription(request);
 	}
-	
+
 	@PostMapping("/searchvisit")
-	public CustomerResponse searchvisit(@RequestBody CustomerRequest request,@PathParam("limit")String limit,@PathParam("offset")String offset)
-	{
-		return service.searchcust(request,limit,offset);
+	public CustomerResponse searchvisit(@RequestBody CustomerRequest request, @PathParam("limit") String limit,
+			@PathParam("offset") String offset) {
+		return service.searchcust(request, limit, offset);
 	}
-	
+
 	@GetMapping("/deletevisit/{id}")
-	public CustomerResponse deletevisit(@PathVariable String id)
-	{
+	public CustomerResponse deletevisit(@PathVariable String id) {
 		return service.deletevisit(id);
 	}
-	
+
 	@GetMapping("/getfullvistdetails/{id}")
-	public CustomerResponse getvisitdata(@PathVariable String id)
-	{
+	public CustomerResponse getvisitdata(@PathVariable String id) {
 		return service.getvisitdata(id);
 	}
 
 	@PostMapping("/updateprescrption")
-	public CustomerResponse updateprescription(@RequestBody AddPrescriptionRequest request)
-	{
+	public CustomerResponse updateprescription(@RequestBody AddPrescriptionRequest request) {
 		return service.updatevisitdetails(request);
 	}
 }

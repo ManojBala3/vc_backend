@@ -46,7 +46,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 
@@ -529,6 +529,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 
 			document.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getLocalizedMessage());
 		}
 

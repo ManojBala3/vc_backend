@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.config.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	UserDao userdao;
+
+	@Autowired
+	JwtTokenUtil tokenutil;
 
 	@Override
 	public CustomerResponse saveuser(UserModel usermodel) {
@@ -68,7 +72,9 @@ public class UserServiceImpl implements UserService{
 					response.setRespdesc("Success");
 					userdata.put("role", usermodelDB.getUserrole());
 					userdata.put("username", usermodelDB.getUsername());
+					userdata.put("token",tokenutil.generateToken(usermodelDB.getUsername(),usermodelDB.getUserrole(),usermodelDB.getId()+""));
 					response.setCommon(userdata);
+
 					return response;
 				}	
 			}

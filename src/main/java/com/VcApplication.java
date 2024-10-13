@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @ComponentScan(basePackages = "com")
 @EnableJpaRepositories
-@EnableAutoConfiguration
 public class VcApplication extends SpringBootServletInitializer{
 	
 	 static final Logger logger = LoggerFactory.getLogger(VcApplication.class);

@@ -24,7 +24,7 @@ public class CollectorServiceImpl implements CollectorService
 {
 	static final Logger logger = LoggerFactory.getLogger(CollectorServiceImpl.class);
 	
-	private int startyear=2022;
+	private int startyear=2021;
 	
 	@Autowired
 	private CustomerDetailsDao customerDao;
@@ -58,7 +58,7 @@ public class CollectorServiceImpl implements CollectorService
 				searchvalue=("%").concat(searchvalue.concat("%"));
 				custlist=customerDao.getcustDetailscustid(searchvalue,Integer.parseInt(limit),Integer.parseInt(offset));
 			}
-			if(custlist!=null && custlist.size()>0)
+			if(custlist!=null && !custlist.isEmpty())
 			{
 				for(CustomerDetails custdata:custlist)
 				{
@@ -89,7 +89,7 @@ public class CollectorServiceImpl implements CollectorService
 		CustomerResponse response=new CustomerResponse();
 		try
 		{
-			if(request.getMobileno()!=null && !request.getMobileno().equals(""))
+			if(request.getMobileno()!=null && !request.getMobileno().isEmpty())
 			{
 				int count= customerDao.getcustDetailsMobilecount(request.getMobileno().trim());
 				if(count>0)
@@ -115,7 +115,6 @@ public class CollectorServiceImpl implements CollectorService
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("savecustomer",e.getLocalizedMessage(),Commonservice.printresp(request)));
@@ -135,7 +134,7 @@ public class CollectorServiceImpl implements CollectorService
 		try
 		{
 			Optional<CustomerDetails> old=customerDao.findById(request.getCustid());
-			if(old!=null && old.isPresent())
+			if(old.isPresent())
 			{
 				int custcount=customerDao.checkmobilenocustid(request.getMobileno(), request.getCustid());
 				if(custcount==0)
@@ -160,7 +159,6 @@ public class CollectorServiceImpl implements CollectorService
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			response.setRespcode("FF");
 			response.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("updatecust",e.getLocalizedMessage(),Commonservice.printresp(request)));
@@ -180,7 +178,6 @@ public class CollectorServiceImpl implements CollectorService
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some error occured");
 			inserterrorlog(new ErrorLogDetails("updatecust",e.getLocalizedMessage(),custid));
@@ -213,7 +210,7 @@ public class CollectorServiceImpl implements CollectorService
 			Month month_m = currentDate.getMonth();
 			List<MasterData> map=customerDao.getmasterdata();
 			custid=custid.concat(String.format("%02d", day)).concat(String.format("%02d", month));
-			if(map!=null && map.size()>0)
+			if(map!=null && !map.isEmpty())
 			{
 				for(MasterData data:map)
 				{
@@ -238,7 +235,7 @@ public class CollectorServiceImpl implements CollectorService
 						else
 						{	currentseq=Integer.parseInt(data.getValue())+1;
 							customerDao.updatemaster("customer_id_seq", currentseq+"");
-							return custid.concat(String.format("%02d", currentseq)).concat((Commonservice.IntToLetter(diffyear+1)).toUpperCase());
+							return custid.concat(String.format("%02d", currentseq)).concat((Commonservice.IntToLetter(diffyear)).toUpperCase());
 						}
 					}
 				}

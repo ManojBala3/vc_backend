@@ -4,11 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TimeZone;
+import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +71,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
 		try
 		{
-			if(request.getCustid()!=null && request.getCustid()!="")
+			if(request.getCustid()!=null && !Objects.equals(request.getCustid(), ""))
 			{
 				logger.info("Exisiting customer");
 				Optional<CustomerDetails> dcustdata=customerDao.findById(Integer.parseInt(request.getCustid()));
@@ -122,7 +118,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			visitdetails.setEnt(Commonservice.HandleNULL(request.getEnt()));
 			visitdetails.setSe(Commonservice.HandleNULL(request.getSe()));
 			visitdetails.setHeight(request.getHeight());
-			visitdetails.setWeight(request.getHeight());
+			visitdetails.setWeight(request.getWeight());
 			visitdetails.setHc(request.getHc());
 			visitdetails.setAgeyear(request.getCustomerageyear());
 			visitdetails.setAgemonth(request.getCustomeragemonth());
@@ -318,7 +314,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				visitdetails.setEnt(request.getEnt());
 				visitdetails.setSe(request.getSe());
 				visitdetails.setHeight(request.getHeight());
-				visitdetails.setWeight(request.getHeight());
+				visitdetails.setWeight(request.getWeight());
 				visitdetails.setHc(request.getHc());
 				visitdetails.setDiagnosis(request.getAdditionalnote());
 				visitdetails.setNextvisitdate(request.getNextreview());
