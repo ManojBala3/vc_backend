@@ -46,7 +46,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 
