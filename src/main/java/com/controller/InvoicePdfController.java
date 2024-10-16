@@ -46,7 +46,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 
@@ -373,7 +373,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 
 			// imageStream =
 			// getClass().getClassLoader().getResourceAsStream("images/days.jpg");
-			PdfPCell tablecheckup20 = createPdfPCellWithPhrase("DAYS", boldFontS);
+			PdfPCell tablecheckup20 = createPdfPCellWithPhrase("DURATION", boldFontS);
 			tablecheckup20.setHorizontalAlignment(Element.ALIGN_CENTER);
 			tablecheckup20.setFixedHeight(20f);
 			// tablecheckup20.setBorder(Rectangle.NO_BORDER);
@@ -421,6 +421,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					tablecheckup22.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup22);
 				} else {
+					
 					PdfPCell tablecheckup22 = createPdfPCellWithPhrase(convertinttostr(pd.getMorning(), value),
 							normalFont);
 					tablecheckup22.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -461,8 +462,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					tablecheckup27.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup27);
 
-					PdfPCell tablecheckup28 = createPdfPCellWithPhrase(convertinttostr(pd.getDuration(), ""),
-							normalFont);
+					PdfPCell tablecheckup28 = createPdfPCellWithPhrase(pd.getDuration(), normalFont);
 					tablecheckup28.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup28.setPaddingTop(5);
 					tablecheckup28.setFixedHeight(30f);
@@ -555,12 +555,17 @@ public class InvoicePdfController extends PdfPageEventHelper {
 	}
 
 	private String convertinttostr(int value, String dropvalue) {
+		if(dropvalue.equalsIgnoreCase("drops") && value == 1) {
+				dropvalue="drop";
+		}
+		
 		if (value != 0)
 			return value + " " + dropvalue;
 		else
 			return "-";
 	}
 
+	
 	private PdfPCell createPdfPCellWithPhrase(String text, Font font) {
         return new PdfPCell(new Phrase(text, font));
 	}

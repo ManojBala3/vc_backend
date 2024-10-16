@@ -43,7 +43,7 @@ public class PrescriptionDetails
 	private Boolean afterfood;
 	
 	@Column(name="duration")
-	private int duration;
+	private String duration;
 	
 	@Column(name="medtype")
 	private String medtype;
@@ -142,11 +142,11 @@ public class PrescriptionDetails
 		this.afterfood = afterfood;
 	}
 
-	public int getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
