@@ -5,9 +5,16 @@ public class CustomerRequest {
 	private String mobilenumber;
 	private String name;
 	private String custid;
+	private String visitdate;
 	
 	public String getCustid() {
 		return custid;
+	}
+	public String getVisitdate() {
+		return visitdate;
+	}
+	public void setVisitdate(String visitdate) {
+		this.visitdate = visitdate;
 	}
 	public void setCustid(String custid) {
 		this.custid = custid;

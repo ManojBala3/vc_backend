@@ -187,6 +187,11 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				obj=prescriptiondao.getvisitdetailsbycustid(searchvalue,Integer.parseInt(limit), Integer.parseInt(offset));
 				custresponse.setTotalcount(prescriptiondao.countbyid(searchvalue)+""); 
 			}
+			else if (request.getVisitdate() != null) {
+	            searchvalue = request.getVisitdate();
+	            obj = prescriptiondao.getvisitdetailsbyvisitdate(searchvalue, Integer.parseInt(limit), Integer.parseInt(offset));
+	            custresponse.setTotalcount(prescriptiondao.countbyvisitdate(searchvalue) + ""); 
+	        }
 			if(obj!=null && obj.size()>0) 
 			{ 
 				custresponse.setRespcode("00");
