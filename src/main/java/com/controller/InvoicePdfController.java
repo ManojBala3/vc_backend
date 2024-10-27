@@ -422,28 +422,28 @@ public class InvoicePdfController extends PdfPageEventHelper {
 					treatmenttable.addCell(tablecheckup22);
 				} else {
 					
-					PdfPCell tablecheckup22 = createPdfPCellWithPhrase(convertinttostr(pd.getMorning(), value),
+					PdfPCell tablecheckup22 = createPdfPCellWithPhrase(convertdoubletostr(pd.getMorning(), value),
 							normalFont);
 					tablecheckup22.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup22.setFixedHeight(30f);
 					tablecheckup22.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup22);
 
-					PdfPCell tablecheckup23 = createPdfPCellWithPhrase(convertinttostr(pd.getNoon(), value),
+					PdfPCell tablecheckup23 = createPdfPCellWithPhrase(convertdoubletostr(pd.getNoon(), value),
 							normalFont);
 					tablecheckup23.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup23.setFixedHeight(30f);
 					tablecheckup23.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup23);
 
-					PdfPCell tablecheckup24 = createPdfPCellWithPhrase(convertinttostr(pd.getEvening(), value),
+					PdfPCell tablecheckup24 = createPdfPCellWithPhrase(convertdoubletostr(pd.getEvening(), value),
 							normalFont);
 					tablecheckup24.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup24.setFixedHeight(30f);
 					tablecheckup24.setPaddingTop(5);
 					treatmenttable.addCell(tablecheckup24);
 
-					PdfPCell tablecheckup25 = createPdfPCellWithPhrase(convertinttostr(pd.getNight(), value),
+					PdfPCell tablecheckup25 = createPdfPCellWithPhrase(convertdoubletostr(pd.getNight(), value),
 							normalFont);
 					tablecheckup25.setHorizontalAlignment(Element.ALIGN_CENTER);
 					tablecheckup25.setFixedHeight(30f);
@@ -554,7 +554,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 			return selector.process("-");
 	}
 
-	private String convertinttostr(int value, String dropvalue) {
+	private String convertdoubletostr(double value, String dropvalue) {
 		if(dropvalue.equalsIgnoreCase("drops") && value == 1) {
 				dropvalue="drop";
 		}

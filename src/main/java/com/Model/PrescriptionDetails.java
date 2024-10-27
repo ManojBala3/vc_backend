@@ -25,16 +25,16 @@ public class PrescriptionDetails
 	private String drugname;
 	
 	@Column(name="morng")
-	private int morning;
+	private double morning;
 	
 	@Column(name="evening")
-	private int evening;
+	private double evening;
 	
 	@Column(name="noon")
-	private int noon;
+	private double noon;
 	
 	@Column(name="night")
-	private int night;
+	private double night;
 	
 	@Column(name="b_food")
 	private Boolean beforefood;
@@ -42,7 +42,7 @@ public class PrescriptionDetails
 	@Column(name="a_food")
 	private Boolean afterfood;
 	
-	@Column(name="duration")
+	@Column(name="duration", length = 50)
 	private String duration;
 	
 	@Column(name="medtype")
@@ -86,35 +86,35 @@ public class PrescriptionDetails
 		this.drugname = drugname;
 	}
 
-	public int getMorning() {
+	public double getMorning() {
 		return morning;
 	}
 
-	public void setMorning(int morning) {
+	public void setMorning(double morning) {
 		this.morning = morning;
 	}
 
-	public int getEvening() {
+	public double getEvening() {
 		return evening;
 	}
 
-	public void setEvening(int evening) {
+	public void setEvening(double evening) {
 		this.evening = evening;
 	}
 
-	public int getNoon() {
+	public double getNoon() {
 		return noon;
 	}
 
-	public void setNoon(int noon) {
+	public void setNoon(double noon) {
 		this.noon = noon;
 	}
 
-	public int getNight() {
+	public double getNight() {
 		return night;
 	}
 
-	public void setNight(int night) {
+	public void setNight(double night) {
 		this.night = night;
 	}
 

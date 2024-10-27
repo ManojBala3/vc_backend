@@ -24,9 +24,9 @@ public class AddPrescriptionRequest
 	public String vitals;
 	public String ent;
 	public String se;
-	public int weight;
-	public int height;
-	public int hc;
+	public double weight;
+	public double height;
+	public double hc;
 	public Timestamp visitdate;
 	public String customermobile;
 	public String additionalnote;
@@ -151,22 +151,22 @@ public class AddPrescriptionRequest
 	public void setSe(String se) {
 		this.se = se;
 	}
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		this.height = height;
 	}
-	public int getHc() {
+	public double getHc() {
 		return hc;
 	}
-	public void setHc(int hc) {
+	public void setHc(double hc) {
 		this.hc = hc;
 	}
 	public String getCustomermobile() {

@@ -56,13 +56,13 @@ public class VisitDetails
 	private String se;
 	
 	@Column(name="Height")
-	private int height;
+	private double height;
 	
 	@Column(name="Weight")
-	private int weight;
+	private double weight;
 	
 	@Column(name="HC")
-	private int hc;
+	private double hc;
 	
 	@Column(name="diagnosis")
 	private String diagnosis;
@@ -194,27 +194,27 @@ public class VisitDetails
 		this.se = se;
 	}
 
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		this.height = height;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
-	public int getHc() {
+	public double getHc() {
 		return hc;
 	}
 
-	public void setHc(int hc) {
+	public void setHc(double hc) {
 		this.hc = hc;
 	}
 
