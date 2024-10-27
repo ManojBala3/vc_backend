@@ -226,11 +226,12 @@ public class CollectorServiceImpl implements CollectorService
 					}
 					else if(data.getKey().equalsIgnoreCase("customer_id_seq"))
 					{
-						if(resettriggered)
+						if(resettriggered || (map.get(2).getKey().equalsIgnoreCase("customer_id_date") && !map.get(2).getValue().equals(String.format("%02d", day))))
 						{
 							currentseq=currentseq+1;
 							customerDao.updatemaster("customer_id_seq", "1");
-							return custid.concat("01").concat(Commonservice.IntToLetter(diffyear));
+							customerDao.updatemaster("customer_id_date", String.format("%02d", day));
+							return custid.concat("01").concat(Commonservice.IntToLetter(diffyear).toUpperCase());
 						}
 						else
 						{	currentseq=Integer.parseInt(data.getValue())+1;

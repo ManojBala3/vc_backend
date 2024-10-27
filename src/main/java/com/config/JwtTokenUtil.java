@@ -75,8 +75,6 @@ public class JwtTokenUtil implements UserDetailsService{
 	//validate token
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		final String username = getUsernameFromToken(token);
-		System.out.println(username);
-		System.out.println(userDetails.getUsername());
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 
