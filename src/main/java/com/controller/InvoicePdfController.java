@@ -560,11 +560,20 @@ public class InvoicePdfController extends PdfPageEventHelper {
 		}
 		
 		if (value != 0)
-			return value + " " + dropvalue;
+			return formatNumber(value) + " " + dropvalue;
 		else
 			return "-";
 	}
-
+	private  String formatNumber(double number) {
+		// Check if the number is an integer (e.g., 4.0, 5.0)
+		if (number == (int) number) {
+			// If true, convert to int and return as a string
+			return String.valueOf((int) number);
+		} else {
+			// Otherwise, keep the decimal places as is
+			return String.valueOf(number);
+		}
+	}
 	
 	private PdfPCell createPdfPCellWithPhrase(String text, Font font) {
         return new PdfPCell(new Phrase(text, font));
