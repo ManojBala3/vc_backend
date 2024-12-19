@@ -25,7 +25,7 @@ import com.common.Commonservice;
 import com.services.CollectorService;
 
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 public class CollectorController

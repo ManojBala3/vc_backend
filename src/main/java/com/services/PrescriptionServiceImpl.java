@@ -1,9 +1,7 @@
 package com.services;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 
 import org.slf4j.LoggerFactory;
@@ -48,7 +46,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	{
 		CustomerResponse custresponse=new CustomerResponse();
 		List<Map<String,String>> vresp=prescriptiondao.getvisitdetails(Integer.parseInt(limit), Integer.parseInt(offset));
-		if(vresp!=null && vresp.size()>0)
+		if(vresp!=null && !vresp.isEmpty())
 		{
 			custresponse.setCommon(vresp);
 			custresponse.setRespcode("00");
@@ -75,7 +73,8 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			{
 				logger.info("Exisiting customer");
 				Optional<CustomerDetails> dcustdata=customerDao.findById(Integer.parseInt(request.getCustid()));
-				custdata=dcustdata.get();
+				if(dcustdata.isPresent())
+					custdata=dcustdata.get();
 			}
 			else
 			{
@@ -110,7 +109,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			if(request.isAddqueue())
 			{
 				visitdetails.setQueuestatus("Waiting");
-				visitdetails.setQueueno(validatequeueno(visitdao.getqueueno()+""));
+				visitdetails.setQueueno(validatequeueno(visitdao.getqueueno()));
 			}
 			visitdetails.setCustid(custdata.getCustid());
 			visitdetails.setAbc(Commonservice.HandleNULL(request.getAbc()));
@@ -126,6 +125,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 			visitdetails.setAgeday(request.getCustomerageday());
 			visitdetails.setDiagnosis(Commonservice.HandleNULL(request.getAdditionalnote()));
 			visitdetails.setVisitdate(timestamp);
+			visitdetails.setUpdatedate(timestamp);
 			visitdetails.setNextvisitdate(request.getNextreview());
 			visitdetails.setAdvice(Commonservice.HandleNULL(request.getComments()));
 			visitdetails=visitdao.save(visitdetails); 
@@ -145,7 +145,6 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("saveprescription - Visit",e.getLocalizedMessage(),Commonservice.printresp(request)));
@@ -166,33 +165,33 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	{
 		CustomerResponse custresponse=new CustomerResponse();
 		List<Map<String,String>> obj=null;
-		String searchvalue="";
+		String searchvalue;
 		try
 		{
 			if(request.getName()!=null)
 			{
 				searchvalue=("%").concat(request.getName().concat("%"));
 				obj=prescriptiondao.getvisitdetailsbyname(searchvalue,Integer.parseInt(limit), Integer.parseInt(offset));
-				custresponse.setTotalcount(prescriptiondao.countbyname(searchvalue)+""); 
+				custresponse.setTotalcount(prescriptiondao.countbyname(searchvalue)+"");
 			}
 			else if(request.getMobilenumber()!=null)
 			{
 				searchvalue=("%").concat(request.getMobilenumber().concat("%"));
 				obj=prescriptiondao.getvisitdetailsbynumber(searchvalue,Integer.parseInt(limit), Integer.parseInt(offset));
-				custresponse.setTotalcount(prescriptiondao.countbynumber(searchvalue)+""); 
+				custresponse.setTotalcount(prescriptiondao.countbynumber(searchvalue)+"");
 			}
 			else if(request.getCustid()!=null)
 			{
 				searchvalue=("%").concat(request.getCustid().concat("%"));
 				obj=prescriptiondao.getvisitdetailsbycustid(searchvalue,Integer.parseInt(limit), Integer.parseInt(offset));
-				custresponse.setTotalcount(prescriptiondao.countbyid(searchvalue)+""); 
+				custresponse.setTotalcount(prescriptiondao.countbyid(searchvalue)+"");
 			}
-			else if (request.getVisitdate() != null) {
+			else if (null!=request.getStartdate() && null!=request.getEnddate()) {
 	            searchvalue = request.getVisitdate();
-	            obj = prescriptiondao.getvisitdetailsbyvisitdate(searchvalue, Integer.parseInt(limit), Integer.parseInt(offset));
-	            custresponse.setTotalcount(prescriptiondao.countbyvisitdate(searchvalue) + ""); 
+	            obj = prescriptiondao.getvisitdetailsbyvisitdate(request.getStartdate(),request.getEnddate(), Integer.parseInt(limit), Integer.parseInt(offset));
+	            custresponse.setTotalcount(prescriptiondao.countbyvisitdate(request.getStartdate(),request.getEnddate()) + "");
 	        }
-			if(obj!=null && obj.size()>0) 
+			if(obj!=null && !obj.isEmpty())
 			{ 
 				custresponse.setRespcode("00");
 				custresponse.setRespdesc("Success");
@@ -206,7 +205,6 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			custresponse.setRespcode("01");
 			custresponse.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("searchcust - Visit",e.getLocalizedMessage(),Commonservice.printresp(request)));
@@ -227,7 +225,6 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			custresponse.setRespcode("01");
 			custresponse.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("Delete Visit",e.getLocalizedMessage(),id));
@@ -244,7 +241,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		try
 		{
 			Optional<VisitDetails> visitdtls= visitdao.findById(Integer.parseInt(id));
-			if(visitdtls!=null && visitdtls.isPresent())
+			if(visitdtls.isPresent())
 			{
 				VisitDetails vdtls=visitdtls.get();
 				presp.setVisitid(id);
@@ -262,7 +259,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				
 				//customer info
 				Optional<CustomerDetails> custdtls=customerDao.findById(vdtls.getCustid());
-				if(custdtls!=null && custdtls.isPresent())
+				if(custdtls.isPresent())
 				{
 					CustomerDetails custdata=custdtls.get();
 					presp.setCustomername(custdata.getCustname());
@@ -278,7 +275,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 				
 				//prescption details
 				ArrayList<PrescriptionDetails> pdtls=prescriptiondao.getprescrption(vdtls.getVisitid());
-				if(pdtls!=null && pdtls.size()>0)
+				if(pdtls!=null && !pdtls.isEmpty())
 				{
 					presp.setProducts(pdtls);
 				}
@@ -294,7 +291,6 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			custresponse.setRespcode("01");
 			custresponse.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("getvisitdata",e.getLocalizedMessage(),id));
@@ -305,33 +301,14 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 	public CustomerResponse updatevisitdetails(AddPrescriptionRequest request)
 	{
 		CustomerResponse response=new CustomerResponse();
-		CustomerDetails custdata=null;
+		CustomerDetails custdata;
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		System.out.println(request.toString());
 		try
 		{
 			Optional<VisitDetails> visitdtls= visitdao.findById(Integer.parseInt(request.getVisitid()));
-			if(visitdtls!=null && visitdtls.isPresent())
+			if(visitdtls.isPresent())
 			{
-				VisitDetails visitdetails=visitdtls.get();
-				visitdetails.setAbc(request.getAbc());
-				visitdetails.setVitals(request.getVitals());
-				visitdetails.setEnt(request.getEnt());
-				visitdetails.setSe(request.getSe());
-				visitdetails.setHeight(request.getHeight());
-				visitdetails.setWeight(request.getWeight());
-				visitdetails.setHc(request.getHc());
-				visitdetails.setDiagnosis(request.getAdditionalnote());
-				visitdetails.setNextvisitdate(request.getNextreview());
-				visitdetails.setAgeyear(request.getCustomerageyear());
-				visitdetails.setAgemonth(request.getCustomeragemonth());
-				visitdetails.setAgeweek(request.getCustomerageweek());
-				visitdetails.setAgeday(request.getCustomerageday());
-				visitdetails.setAdvice(request.getComments());
-				if(request.isAddqueue())
-					visitdetails.setQueuestatus("Waiting");
-				else		
-					visitdetails.setQueuestatus("Completed");
+				VisitDetails visitdetails = getVisitDetails(request, visitdtls.get());
 				visitdao.save(visitdetails);
 			}
 			custdata=customerDao.getcustwithmobile(request.getCustomermobile());
@@ -344,24 +321,22 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 					custdata.setEmailid(request.getCustomeremail());
 				if(request.getCustomermobile()!=null)
 					custdata.setMobileno(request.getCustomermobile());
-				custdata=customerDao.save(custdata);
+				customerDao.save(custdata);
 			}
 			
 			ArrayList<PrescriptionDetails> pdtls=prescriptiondao.getprescrption(Integer.parseInt(request.getVisitid()));
-			if(pdtls!=null && pdtls.size()>0)
+			if(pdtls!=null && !pdtls.isEmpty())
 			{
 				for(PrescriptionDetails userdata:request.getProducts())
 				{
-					boolean deletedata=true;
-					if(request.getProducts()!=null && request.getProducts().size()>0)
+                    if(request.getProducts()!=null && !request.getProducts().isEmpty())
 					{
 						boolean data_avaliable=false;
 						for(PrescriptionDetails dbdata:pdtls)
 						{
 							if(userdata.getPid()==dbdata.getPid())
 							{
-								deletedata=false;
-								dbdata.setDrugname(userdata.getDrugname());
+                                dbdata.setDrugname(userdata.getDrugname());
 								dbdata.setMedtype(userdata.getMedtype());
 								dbdata.setMorning(userdata.getMorning());
 								dbdata.setNoon(userdata.getNoon());
@@ -377,8 +352,7 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 						}
 						if(!data_avaliable)
 						{
-							deletedata=false;
-							userdata.setVisitid(Integer.parseInt(request.getVisitid()));
+                            userdata.setVisitid(Integer.parseInt(request.getVisitid()));
 							userdata.setCreateddate(timestamp);
 							prescriptiondao.save(userdata);
 						}
@@ -390,11 +364,10 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 						boolean deleteflag=true;
 						for(PrescriptionDetails userdata:request.getProducts())
 						{
-							if(dbdata.getPid()==userdata.getPid())
-							{
-								deleteflag=false;
-								continue;
-							}
+                            if (dbdata.getPid() == userdata.getPid()) {
+                                deleteflag = false;
+                                break;
+                            }
 						}
 						if(deleteflag)
 							prescriptiondao.deleteById(dbdata.getPid());
@@ -405,24 +378,37 @@ public class PrescriptionServiceImpl implements Prescriptionservice
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			response.setRespcode("01");
 			response.setRespdesc("Some Error Occured");
 			inserterrorlog(new ErrorLogDetails("updatevisitdetails",e.getLocalizedMessage(),Commonservice.printresp(request)));
 		}
 		return response;
 	}
-	
-	public int calculateAge(Date birthDate)
-	{
-		LocalDate bd=convertToLocalDateViaSqlDate(birthDate);
-		return Period.between(bd, LocalDate.now()).getYears();
+
+	private static VisitDetails getVisitDetails(AddPrescriptionRequest request, VisitDetails visitdetails) {
+		visitdetails.setAbc(request.getAbc());
+		visitdetails.setVitals(request.getVitals());
+		visitdetails.setEnt(request.getEnt());
+		visitdetails.setSe(request.getSe());
+		visitdetails.setHeight(request.getHeight());
+		visitdetails.setWeight(request.getWeight());
+		visitdetails.setHc(request.getHc());
+		visitdetails.setDiagnosis(request.getAdditionalnote());
+		visitdetails.setNextvisitdate(request.getNextreview());
+		visitdetails.setAgeyear(request.getCustomerageyear());
+		visitdetails.setAgemonth(request.getCustomeragemonth());
+		visitdetails.setAgeweek(request.getCustomerageweek());
+		visitdetails.setUpdatedate(new Timestamp(System.currentTimeMillis()));
+		visitdetails.setAgeday(request.getCustomerageday());
+		visitdetails.setAdvice(request.getComments());
+		if(request.isAddqueue())
+			visitdetails.setQueuestatus("Waiting");
+		else
+			visitdetails.setQueuestatus("Completed");
+		return visitdetails;
 	}
-	
-	public LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
-	    return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
-	}
-	
+
+
 	public void inserterrorlog(ErrorLogDetails errorlog)
 	 {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());

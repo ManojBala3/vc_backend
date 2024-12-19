@@ -46,7 +46,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.services.Prescriptionservice;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/venbaclinic")
 
@@ -410,7 +410,7 @@ public class InvoicePdfController extends PdfPageEventHelper {
 				treatmenttable.addCell(tablecheckup21);
 
 				String value = "";
-				if (pd.getMedtype().equalsIgnoreCase("ml") || pd.getMedtype().equalsIgnoreCase("drops"))
+				if (pd.getMedtype().equalsIgnoreCase("ml") || pd.getMedtype().equalsIgnoreCase("drops") || pd.getMedtype().equalsIgnoreCase("puffs"))
 					value = pd.getMedtype();
 
 				if (pd.getMedtype().equalsIgnoreCase("others")) {
@@ -557,6 +557,9 @@ public class InvoicePdfController extends PdfPageEventHelper {
 	private String convertdoubletostr(double value, String dropvalue) {
 		if(dropvalue.equalsIgnoreCase("drops") && value == 1) {
 				dropvalue="drop";
+		}
+		else if(dropvalue.equalsIgnoreCase("puffs") && value == 1) {
+			dropvalue="puff";
 		}
 		
 		if (value != 0)
