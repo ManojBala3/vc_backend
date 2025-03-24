@@ -56,4 +56,10 @@ public class UserController
 		return userservice.searchuser(limit,offset,request);
 	}
 
+	@GetMapping("/checkserver")
+	public String checkserver()
+	{
+		return "Server is up and running";
+	}
+
 }
